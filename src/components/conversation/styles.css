@@ -1,0 +1,53 @@
+.Conversation{
+    width: 100%;
+    height: 60px;
+    margin: 0;
+}
+.Conversation:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+.line{
+    margin: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #d1caca;
+    margin-left: 50%;
+    transform: translateX(-50%);  
+}
+
+.Conversation .cardConv{
+    /* background-color: #f1f1f1; */
+    padding: 20px;
+    /* border-bottom: 2px solid #d6d5d5; */
+}
+.Conversation .cardConv div{
+    display: flex;
+    align-items: center;
+}
+
+.Conversation img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cardInfo{
+    display: flex;
+    justify-content: space-between;
+}
+/*badge new message*/
+#badgeNewMessage{
+    background-color: #9e9a9a;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+#badgeNewMessage p{
+    transform: translateY(-10%);
+}

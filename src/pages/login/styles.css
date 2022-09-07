@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+}
+.Login{
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    flex-wrap: unset;
+}
+
+.divName{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.divName .cardName{
+    padding: 20px;
+}
+.divName .cardName h4{
+    color: #5a5ac7;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.3rem;
+    text-shadow: 1px 1px 7px #8f8fe6;
+}
+.divName .cardName p{
+    color: rgba(0, 0, 0, 0.5);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: .9rem;
+    margin-left: 10px;
+}
+
+
+.divForm{
+    width: 60%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.divForm .cardForm{
+    width: 60%;
+    height: 320px;
+    border: 1px solid #c7c5c5;
+    border-bottom-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 1px 1px 7px #bbb7b7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+.cardForm #textFirst{
+    font-weight: bold;
+    font-size: 20px;
+    color: #5a5ac7;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    height: 30px;
+    margin-top: 10px;
+}
+.divForm .cardForm form{
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    gap: 20px;
+}
+.divForm .cardForm form .inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;    
+}
+.inputs input{
+    width: 100%;
+}
+.divForm .cardForm #button{
+    width: 100%;
+}
+.divForm .cardForm .buttonRegister{
+    width: 100%;
+    display: flex;
+    margin-top: -10px;
+}
+
+
+.modalError{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+    width: 230px;
+    animation: showError;
+    animation-duration: 200ms;
+}
+
+@keyFrames showError{
+    from{
+        margin-top: -10px;
+    }
+    to{
+        margin-top: 30px;
+    }
+}

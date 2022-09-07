@@ -1,0 +1,19 @@
+.buttonAddFriendsInConversationsComponent img{
+    animation: showBtnAddFriends;
+    animation-duration: 700ms;
+    animation-delay: 100ms;
+}
+
+@keyframes showBtnAddFriends{
+
+    from{
+        width: 10px;
+        height: 10px;
+        opacity: 0;
+    }
+    to{
+        width: 100px;
+        height: 100px;
+    }
+
+}

@@ -1,0 +1,23 @@
+.alert{
+    animation: showAlert;
+    animation-duration: 300ms;
+    margin: 0;
+    padding: 0;
+    height: 60px;
+}
+@keyframes showAlert{
+
+    from{
+        opacity: 0;
+        transform: translateY(-20%);
+    }
+    to{
+        opacity: 1;
+    }
+
+}
+
+#messageIconAlert{
+    width: 20px;
+    height: 20px;
+}

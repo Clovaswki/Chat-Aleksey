@@ -1,0 +1,62 @@
+.FieldMsg{
+    flex: 3.8;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+}
+
+.FieldMsg .cardMessages{
+    flex: 1;
+    height: calc(100vh - 120px);
+    display: flex;
+    overflow-y: auto;
+    flex-direction: column;
+}
+
+/*scroll styles*/
+.cardMessages::-webkit-scrollbar {
+    width: 10px;     
+}
+.cardMessages::-webkit-scrollbar-track {
+    background-color:  #747070;
+}
+.cardMessages::-webkit-scrollbar-thumb {
+    background-color: #a09d9d;
+    border-radius: 5px;
+    border: 1px solid #747070;               
+}
+/**/
+
+.FieldMsg .input{
+    width: 100%;
+    height: 50px; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.FieldMsg form{
+    width: 100%;
+    height: 50px; 
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.FieldMsg .input input{
+    flex: 1;
+    padding: 10px;
+    border: 0;
+    color: #a8a8a8;
+    outline: none;
+}
+.FieldMsg .input img{
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    cursor: pointer;
+}
+.FieldMsg .input img:hover{
+    opacity: 0.8;
+}

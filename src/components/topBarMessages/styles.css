@@ -1,0 +1,33 @@
+.topBarMessages{
+    width: 100%;
+    height: 70px;
+    /* background-color: #b9dce7; */
+    background-image: linear-gradient(to right, #B9DCE7, #1877F2);
+    display: flex;
+}
+.icons div{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.icons div img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.icons div div{
+    font-size: 13pt;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.icons p{
+    position: absolute;
+    margin-top: 55px;
+    margin-left: 70px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #50509e;
+}

@@ -1,0 +1,122 @@
+.Chat{
+    height: 100vh;
+    display: flex;
+}
+/* Card Conversations */
+.Conversations{
+    flex: 2.5;
+    max-width: 405.72px;
+}
+.Conversations ul{
+    list-style: none;
+    padding: 0;
+    overflow-y: auto;
+    height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/*scroll styles*/
+.Contacts::-webkit-scrollbar {
+    width: 10px;     
+}
+.Contacts::-webkit-scrollbar-track {
+    background-color:  #ccc6c6;
+}
+.Contacts::-webkit-scrollbar-thumb {
+    background-color: #a19d9d;
+    border-radius: 5px;
+    border: 1px solid #ccc6c6;               
+}
+/**/
+
+/* Card Conversations */
+
+/* Card Messages */
+
+/* Card Messages */
+
+/* Card friend online */
+    /* max width */
+    .maxWidth{
+        flex: 2;
+    }
+    
+    .FriendsOnline .topBarOnline{
+        width: 100%;
+        height: 50px;
+        border-bottom: 2px solid #e2dfdf;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .maxWidth .topBarOnline .content{
+        flex: .9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .maxWidth .topBarOnline p{
+        font-size: 14pt;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+        margin-left: -35px;
+    }
+    
+    .FriendsOnline ul{
+        list-style: none;
+        padding: 0;
+    }
+
+    .FriendsOnline .divIconBack{
+        flex: .1;
+        padding: 10px;
+    }
+    .maxWidth .iconBack{
+        width: 1.5rem;
+        height: 1.5rem;
+        transform: rotate(180deg);
+        cursor: pointer;
+    }
+    .iconBack:hover{
+        opacity: .5;
+    }
+    /* max width */
+    
+    /* min width */
+    .minWidth{
+        flex: .1;
+    }
+
+    .minWidth .iconBack{
+        width: 1.5rem;
+        height: 1.5rem;
+        cursor: pointer;
+    }
+    /* min width */
+    
+    /* Card friend online */
+    
+    /* element No results of search */
+    .cardNoResultsChat{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 320px;
+}
+.cardNoResultsChat div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    
+}
+.cardNoResultsChat img{
+    width: 30px;
+    height: 30px;
+}
+.cardNoResultsChat p{
+    font-weight: bold;
+}

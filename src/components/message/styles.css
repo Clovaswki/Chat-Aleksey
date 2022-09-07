@@ -1,0 +1,40 @@
+.messageCard{
+   display: flex;
+   flex-direction: column;
+   margin-top: 20px;
+   align-items: flex-end;
+}
+
+.messageCard .messageTextSender{
+    background-color:  #1877f2;
+    color: #ffff;
+    padding: 10px;
+    border-radius: 20px;
+    margin-right: 10px;
+    max-width: 200px;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+.messageCard.own{
+    align-items: flex-start;
+}
+.messageTextReceived{
+    background-color:  #ccd2da;
+    color: #252424;
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    max-width: 200px;
+    font-weight: bold;
+    font-size: 10pt;
+}
+
+
+.messageCard .messageBottom{
+    font-size: 8pt;
+    margin-top: -15px;
+    margin: -10px 10px;
+    font-weight: bold;
+    color: #424040;
+}

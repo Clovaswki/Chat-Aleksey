@@ -1,0 +1,21 @@
+.cardRegister{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    overflow-y: auto;
+    gap: -10px;
+}
+
+.cardErrors{
+    top: 0%;
+    right: 0%;
+    position: absolute;
+    width: 250px;
+    height: 100vh;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

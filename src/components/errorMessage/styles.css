@@ -1,0 +1,34 @@
+.cardChatError{
+    position: absolute;
+    left: 90%;
+    top: 2%;
+    transform: translateX(-50%);
+    box-shadow: 1px 1px 5px;
+    z-index: 3;
+    min-width: 200px;
+    animation: showMessageError;
+    animation-duration: 500ms;
+}
+
+@keyframes showMessageError{
+
+    from{
+        top: 60%;
+        opacity: 0;
+    }
+
+}
+
+.cardChatError div{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 0;
+}
+
+.cardChatError div p{
+    margin-bottom: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
