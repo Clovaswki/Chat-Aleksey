@@ -4,8 +4,8 @@ import { getUserLocalStorage } from '../contexts/provider/utils'
 const user = getUserLocalStorage()
 
 const Api = axios.create({
-    baseURL: 'http://localhost:3001'
-    //baseURL: 'https://api-chat-aleksey.herokuapp.com'//heroku
+    //baseURL: 'http://localhost:3001'
+    baseURL: 'https://api-chat-aleksey.herokuapp.com'//heroku
 })
 
 Api.interceptors.request.use(

@@ -88,7 +88,7 @@ const FieldMessages = () => {
 
     //post of new message
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event && event.preventDefault()
         
         const newMsg = {
             conversationId: currentChat._id,

@@ -17,6 +17,22 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
     const { setMessageError, setConversations, conversations } = ContextChat()
     const [myFriend, setMyFriend] = useState(false)
 
+    //format name
+    const [name, setName] = useState(user.name)
+
+    if(name.length > 9){
+
+        var nameArray = name.split('')
+
+        var nameFilter = nameArray.splice(0, 9)
+
+        nameFilter = `${nameFilter.join('')}`
+
+        setName(nameFilter)
+
+    }
+    //...
+
     //verify if the user is a contact
     useEffect(() => {
         async function verifyMyFriend() {
@@ -62,7 +78,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
                 <Card.Body className='cardBodyUser'>
                     <div className="userInfo">
                         <img src={user.picture ? user.picture : "/img/noAvatar.png"} alt="user" />
-                        <div>{user.name}</div>
+                        <div>{name}</div>
                     </div>
                     <div className="Buttons">
                         {

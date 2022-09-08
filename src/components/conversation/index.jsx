@@ -12,7 +12,6 @@ const Conversation = ({conv, currentUser}) => {
     const [user, setUser] = useState({})
     const { allUsers } = ContextChat()
 
-
     useEffect(() => {
         var friendId = conv.members.find( m => m !== currentUser.id)
 

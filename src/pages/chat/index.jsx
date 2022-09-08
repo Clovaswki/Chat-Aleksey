@@ -49,8 +49,8 @@ const Chat = () => {
 
     useEffect(() => {
         //connection with websocket server
-        socket.current = io('ws://localhost:3002')
-        //socket.current = io('https://server-socket-chat-aleksey.herokuapp.com')//heroku
+        //socket.current = io('ws://localhost:3002')
+        socket.current = io('https://server-socket-chat-aleksey.herokuapp.com')//heroku
         
         currentUser.setSocket(socket.current) //add websocket server instance on the auth context
 
