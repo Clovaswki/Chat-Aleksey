@@ -16,6 +16,7 @@ import CardProfile from "../../components/cardProfile";
 import ErrorMessage from "../../components/errorMessage";
 import LoadChat from "../../components/cardLoadChat";
 import ButtonAddFriendsInConversations from "../../components/buttonAddFriendsInConversations";
+import ModalAddDescription from "../../components/modalAddDescription";
 
 //contexts
     //auth context
@@ -41,11 +42,17 @@ const Chat = () => {
     const socket = useRef()
     const [cardFriendsMaxWidth, setCardFriendsMaxWidth] = useState(false)//component of friends online dynamic
     const [loadChat, setLoadChat] = useState(true)//component load chat
+    const [activeCardAddDescription, setActiveCardAddDescription] = useState(false)//add description of profile
     const [arrivalMessage, setArrivalMessage] = useState({
         sender: '',
         text: '',
         createdAt: ''
     })// new message that arrived
+
+    //check if a profile description exists
+    useEffect(() => {
+        !currentUser.description && setActiveCardAddDescription(true)
+    }, [])
 
     useEffect(() => {
         //connection with websocket server
@@ -53,7 +60,7 @@ const Chat = () => {
         socket.current = io('https://server-socket-chat-aleksey.herokuapp.com')//heroku
         
         currentUser.setSocket(socket.current) //add websocket server instance on the auth context
-
+        
         //get new message of a user
         socket.current.on('getMessage', data => {
             
@@ -61,20 +68,20 @@ const Chat = () => {
                 delete data.receivedId
                 setArrivalMessage(data)
             }
-
+            
         })
         //
-
+        
         //get state of writing of friend
         socket.current.on('getUserWriting', ({state, senderId, receivedId}) => {
             
             receivedId === currentUser.id && setWriting({state, senderId})
-
+            
         })
         //
-
+        
     }, [])
-
+    
     useEffect(() => {
         //send user to websocket server 
         socket.current.emit('addUser', {userId: currentUser.id, userName: currentUser.name})
@@ -84,23 +91,23 @@ const Chat = () => {
             let filteredFriends = []
             
             filteredFriends = [...users.filter( user => user.userId !== currentUser.id && user.userId && user.userId !== null)]
-
+            
             setFriendsOnline([...filteredFriends])
         })
         //test
         
         //test
     }, [currentUser, socket])
-
+    
     //set hide chat loader
     useEffect(() => {
 
         if((conversations.length > 0 || conversations[0] == null) && allUsers.length > 0){
             setLoadChat(false)
         }
-
+        
     }, [conversations, allUsers])
-
+    
     useEffect(() => {
         //get conversations of user
         async function getConversations(){
@@ -109,7 +116,7 @@ const Chat = () => {
                 
                 response.data.length > 0
                 ? setConversations([...response.data])
-                : setConversations([null])
+                : setConversations(['none'])
                 
             }catch(error){
                 if(error.response.status === 401){
@@ -138,7 +145,7 @@ const Chat = () => {
     }, [currentUser])
 
     const componentText_friendsOnline = (
-        <div className="content p-3">
+        <div className="content p-3 showText">
             <p>Amigos Online</p>
         </div>
     )
@@ -161,7 +168,8 @@ const Chat = () => {
             setModeEditProfile,
             modeEditProfile,
             setNoResults,
-            cardFriendsMaxWidth
+            cardFriendsMaxWidth,
+            setActiveCardAddDescription
         }}>
             {
                 loadChat ?
@@ -174,8 +182,11 @@ const Chat = () => {
                 {
                     activeCardSearchFriends && <CardAddFriends/>
                 }
+                {   
+                    activeCardChangeProfile && <CardProfile/>   
+                }
                 {
-                    activeCardChangeProfile && <CardProfile/>
+                    activeCardAddDescription && <ModalAddDescription/>
                 }
                 <div className="Chat">
                     <div className="Conversations">
@@ -192,7 +203,7 @@ const Chat = () => {
                                 </div>
                             }
                             {
-                                conversations[0] == undefined ?
+                                conversations.includes('none')  ?
                                 
                                 <ButtonAddFriendsInConversations/>
                                 
@@ -218,7 +229,6 @@ const Chat = () => {
                             </div>
                             {
                                 cardFriendsMaxWidth && componentText_friendsOnline
-                                    
                             }
                         </div>
                         <ul>

@@ -21,7 +21,8 @@ export default function CardChangeProfile({ currentUser, setCurrentUser }) {
     const [dataOfEdit, setDataOfEdit] = useState({
         name: currentUser.name,
         email: currentUser.email,
-        picture: ''
+        picture: '',
+        description: ''//not used here
     })
     const [renderNewImage, setRenderNewImage] = useState(false) //render image choose on the input
     const [isLoader, setIsLoader] = useState(false)//loader icon
@@ -30,11 +31,12 @@ export default function CardChangeProfile({ currentUser, setCurrentUser }) {
     //change data of user
     const handleEdit = () => {
 
-        var { _id } = currentUser //id of user
+        var { _id, description } = currentUser //id of user
 
         var name = '',
             email = '',
-            picture = ''
+            picture = '',
+            descriptionProfile =''
 
         if(dataOfEdit.name && dataOfEdit.name != currentUser.name){
             name = dataOfEdit.name
@@ -45,13 +47,18 @@ export default function CardChangeProfile({ currentUser, setCurrentUser }) {
         if(dataOfEdit.picture && dataOfEdit.picture != currentUser.picture){
             picture = dataOfEdit.picture
         }
+        if(description){
+            if(dataOfEdit.description && dataOfEdit.description != currentUser.description){
+                descriptionProfile = dataOfEdit.description
+            }
+        }
 
         if(name || email || picture){
 
             async function changeData(){
                 try{
                     var response = await Api.post('/user/change-user', {
-                      _id , name, email, picture
+                      _id , name, email, picture, description: descriptionProfile
                     })
                     var { data } = response
                     setCurrentUser(data)
@@ -143,6 +150,14 @@ export default function CardChangeProfile({ currentUser, setCurrentUser }) {
                         type='text'
                         value={dataOfEdit.email}  
                         onChange={event => setDataOfEdit({ email: event.target.value })}
+                    />
+                </div>
+                <div>
+                    <FormLabel>Descrição</FormLabel>
+                    <FormControl
+                        type='text'
+                        value={dataOfEdit.description}  
+                        onChange={event => setDataOfEdit({ description: event.target.value })}
                     />
                 </div>
 

@@ -38,3 +38,15 @@
     font-weight: bold;
     color: #424040;
 }
+
+.messageTextAndDelete{
+    display: flex;
+}
+
+.iconDeleteMsg{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    opacity: .7;
+    margin-top: 10px;
+}

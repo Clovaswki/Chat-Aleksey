@@ -33,6 +33,10 @@ export default function CardProfile({ }) {
         {
             content: currentUser.email,
             label: "E-mail"
+        },
+        {
+            content: currentUser.description,
+            label: 'Descrição'
         }
     ]
 

@@ -75,6 +75,9 @@ export default function CardAddFriends({ }) {
                 all_users = [...getData]
             }
 
+            //filter layer
+            all_users = all_users.filter(user => user._id !== currentUser.id)
+
             var filteredUsers = all_users.filter(user => user.name.toLowerCase().includes(search))
             setUsers([...filteredUsers])
 

@@ -6,6 +6,7 @@ import './styles.css'
 //components
 import TopBarMessages from '../topBarMessages';
 import Message from "../message";
+import ModalMessage from "../modalMessage";
 
 //contexts
     //auth context
@@ -27,9 +28,15 @@ const FieldMessages = () => {
         socket, 
         allUsers, 
         setAllUsers,
-        writing 
+        writing,
+        setMessageError 
     } = ContextChat()//states of chat context
     const currentUser = ContextAuth() //data of user authenticated
+    const [modalDeleteMessage, setModalDeleteMessage] = useState({
+        state: false,
+        messageId: '',
+        userId: ''
+    })
     
     //get new message of websocket server
     useEffect(() => {
@@ -44,7 +51,7 @@ const FieldMessages = () => {
     useEffect(() => {
         async function getMessages(){
             try{
-                var response = await Api.get('/chat/get-messages/'+currentChat._id)
+                var response = await Api.get(`/chat/get-messages?conversationId=${currentChat._id}&userId=${currentUser.id}`)
                 setMessages(response.data)
                 setNewMessage('')
             }catch(error){
@@ -98,13 +105,21 @@ const FieldMessages = () => {
         
         try{
             if(newMessage){
-                setMessages([...messages, newMsg])
-                await Api.post('/chat/new-message', newMsg) 
+
+                var res = await Api.post('/chat/new-message', newMsg) 
+
+                setMessages([...messages, {
+                    _id: res.data._id,
+                    conversationId: currentChat._id,
+                    sender: currentUser.id,
+                    text: newMessage
+                }])
                 
                 var friendId = currentChat.members.find( m => m !== currentUser.id)
                 
                 //send message to server websocket
                 socket.current.emit('newMessage', {
+                    _id: res.data._id,
                     senderId: currentUser.id,
                     receivedId: friendId,
                     text: newMessage
@@ -117,19 +132,55 @@ const FieldMessages = () => {
         }
     }
 
+    //function delete message
+    async function deleteMessage(messageId, userId){
+        try {   
+            var filterMessages = messages.filter( msg => msg._id !== messageId)
+            
+            setModalDeleteMessage({
+                state: false,
+                messageId: '',
+                userId: ''
+            })
+
+            await Api.get(`/chat/delete-messages?messageId=${messageId}&userId=${userId}`)
+
+            setMessages([...filterMessages])
+        } catch (error) {
+            if(error.response.status === 500) {
+                setMessageError(error.response.data.error)
+                setTimeout(() => setMessageError(''), 5000)
+            }
+        }
+    }
+
     //scroll smooth
     useEffect(() => {
         scrollRef.current?.scrollIntoView({behavior: 'smooth'}) 
     }, [messages])
 
     return (
+        <>
+        {
+            modalDeleteMessage.state && 
+            <ModalMessage 
+                messageId={modalDeleteMessage.messageId}
+                userId={modalDeleteMessage.userId}
+                deleteMessage={deleteMessage}
+                setModalDeleteMessage={setModalDeleteMessage}
+            />
+        }
         <div className="FieldMsg">
             <TopBarMessages user={user} writing={writing}/>
             <div className="cardMessages" style={{ backgroundImage: 'url(/img/background1.png)' }}>
                 {
                     messages.map( (msg, index) => (
                         <div key={index} ref={scrollRef}>
-                            <Message sender={msg.sender === currentUser.id} message={msg}/>
+                            <Message 
+                                sender={msg.sender === currentUser.id} 
+                                message={msg} 
+                                setModalDeleteMessage={setModalDeleteMessage}
+                            />
                         </div>
                     ))
                 }
@@ -149,6 +200,7 @@ const FieldMessages = () => {
                 </form>
             </div>
         </div>
+        </>
     )
 
 }

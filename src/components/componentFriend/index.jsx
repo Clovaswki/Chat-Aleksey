@@ -55,6 +55,14 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
 
             if(response.status === 201){
                 setMyFriend(true)
+             
+                conversations.includes('none')
+                ? //if there are no conversations
+                setConversations([{
+                    _id: response.data._id,
+                    members: [NewConversation.senderId, NewConversation.receivedId]
+                }])
+                : //if there are conversations
                 setConversations([...conversations, {
                     _id: response.data._id,
                     members: [NewConversation.senderId, NewConversation.receivedId]
