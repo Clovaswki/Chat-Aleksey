@@ -4,6 +4,7 @@
     border-right: 1px solid gray;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .FieldMsg .cardMessages{
@@ -48,7 +49,7 @@
     flex: 1;
     padding: 10px;
     border: 0;
-    color: #a8a8a8;
+    color: #222222;
     outline: none;
 }
 .FieldMsg .input img{
@@ -59,4 +60,8 @@
 }
 .FieldMsg .input img:hover{
     opacity: 0.8;
+}
+
+.btnsFieldMessages{
+    display: flex;
 }

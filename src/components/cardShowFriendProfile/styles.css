@@ -1,0 +1,132 @@
+.cardShowFriendProfile{
+    flex: 2.5;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-image: radial-gradient(circle, rgb(24, 119, 242, .5), rgb(185, 220, 231, .5));
+    animation: showCardFriendProfile;
+    animation-duration: 500ms;
+}
+
+/*scroll styles component profile*/
+.cardShowFriendProfile::-webkit-scrollbar {
+    width: 10px;     
+}
+.cardShowFriendProfile::-webkit-scrollbar-track {
+    background-color:  #ccc6c6;
+}
+.cardShowFriendProfile::-webkit-scrollbar-thumb {
+    background-color: #a19d9d;
+    border-radius: 5px;
+    border: 1px solid #ccc6c6;               
+}
+/**/
+
+@keyframes showCardFriendProfile{
+
+    from{
+        flex: .1;
+    }
+
+}
+
+.cardShowFriendProfile header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardShowFriendProfile header p{
+    margin: 0;
+}
+.cardShowFriendProfile header span{
+    cursor: pointer;
+}
+
+.info_friendUser{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.info_card_01, .info_card_02{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.info_card_01 img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.info_card_02 .mutual_users{
+    display: flex;
+    height: 100px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.info_card_02 .mutual_users ul{
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(70px, max-content)
+    repeat(4, 70px);
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+
+/*scroll styles*/
+.mutual_users::-webkit-scrollbar {
+    width: 10px;     
+}
+.mutual_users::-webkit-scrollbar-track {
+    background-color:  #ccc6c6;
+}
+.mutual_users::-webkit-scrollbar-thumb {
+    background-color: #a19d9d;
+    border-radius: 5px;
+    border: 1px solid #ccc6c6;               
+}
+/**/
+
+.text_mutualFriends{
+    height: 50px;
+}
+
+.mutual_users ul li{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.mutual_users ul li img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.mutual_users ul li p{
+    /* margin-top: -20px; */
+    line-height: 15px;
+}
+
+.info_card_03{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+}
+.info_card_03 p{
+    margin: 0;
+    line-height: 15px;
+}

@@ -12,6 +12,7 @@
     height: 35px;
     border-radius: 50%;
     border: 1px solid #9a9aee;
+    object-fit: cover;
 }
 .cardFriend .iconImage span{
     background-color: green;

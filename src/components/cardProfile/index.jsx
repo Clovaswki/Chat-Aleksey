@@ -1,11 +1,17 @@
 import { Card, Spinner, FormText, FormLabel, Button, Form, FormControl } from 'react-bootstrap'
-import { Close } from '@mui/icons-material/';
 import EmailIcon from '@mui/icons-material/AlternateEmail';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
 import { useEffect, useState } from 'react';
 import './styles.css'
 
+//timeago
+import { format, register } from 'timeago.js'
+import { locale } from '../../helpers/localeStringTimeAgo'
+//...
+
 //components
 import CardChangeProfile from '../cardChangeProfile'
+import ElevationCard from '../supendedCard';
 
 //Api rest server
 import Api from '../../services/api'
@@ -15,6 +21,10 @@ import Api from '../../services/api'
 import ContextAuth from '../../contexts/provider/auth'
 //context chat
 import { ContextChat } from '../../contexts/chat/chatContext';
+
+//error handling
+import { errorHandling } from '../../helpers/errorHandling';
+
 
 export default function CardProfile({ }) {
 
@@ -28,15 +38,21 @@ export default function CardProfile({ }) {
     } = ContextChat()
     const { id } = ContextAuth()
 
+    //timeago register pt_br language
+    register('pt_BR', locale)
+    //...
+
     //informations of user
     const fields = [
         {
             content: currentUser.email,
-            label: "E-mail"
+            label: "E-mail",
+            icon: <EmailIcon/>
         },
         {
             content: currentUser.description,
-            label: 'Descrição'
+            label: 'Descrição',
+            icon: <PersonPinIcon/>
         }
     ]
 
@@ -51,10 +67,7 @@ export default function CardProfile({ }) {
                 var response = await Api.get('/user/get-users/?id=' + id)
                 setCurrentUser(response.data)
             } catch (error) {
-                if(error.response.status === 401){
-                    setMessageError('Sua sessão expirou!')
-                    setTimeout(() => document.location.reload(), 1000)//refresh
-                }
+                errorHandling(error, 'cardProfile')
             }
         }
         getCurrentUser()
@@ -68,33 +81,38 @@ export default function CardProfile({ }) {
                         <CardChangeProfile currentUser={currentUser} setCurrentUser={setCurrentUser}/>
                         :
                         <Card.Body className='bodyProfile'>
-                            <div className='topCardProfile d-flex w-100'>
-                                <Close className='iconClose' onClick={() => [setActiveChangeProfile(false), setModeEditProfile(false)]} />
-                            </div>
-                            <div className='cardImg'>
-                                <Card.Img src={currentUser.picture ? currentUser.picture : '/img/noAvatar.png'} className='imgProfile' />
-                            </div>
-                            <div className='infoProfile'>
-                                <div className="name">
-                                    <Card.Text><strong>{currentUser.name}</strong></Card.Text>
+                            <ElevationCard>
+                                <div className='topCardProfile d-flex w-100'>
+                                    <small onClick={() => [setActiveChangeProfile(false), setModeEditProfile(false)]}>
+                                        Fechar
+                                    </small>
                                 </div>
+                            </ElevationCard>
+                            <ElevationCard>
+                                <div style={{display:'flex',justifyContent: 'center', width: '100%', alignItems: 'center', flexDirection: 'column', gap: '10px'}}>
+                                    <Card.Img src={currentUser.picture ? currentUser.picture : '/img/noAvatar.png'} className='imgProfile mt-2' referrerpolicy="no-referrer"/>
+                                    <div className="name">
+                                        <Card.Text><strong>{currentUser.name}</strong></Card.Text>
+                                    </div>
+                                </div>
+                            </ElevationCard>
+                            <div className='infoProfile'>
                                 {
                                     fields.map((field, index) => (
-
-                                        <Card className='fieldInfo' key={index}>
-                                            <Card.Body className='d-flex gap-2'>
-                                                <FormLabel className='m-0'><EmailIcon /></FormLabel>
-                                                <FormText>{field.content}</FormText>
-                                            </Card.Body>
-                                        </Card>
-
+                                        <ElevationCard key={index} height={'60px'}>
+                                                <FormLabel className='m-0'>{field.icon}</FormLabel>
+                                                <FormText className='m-0'>{field.content}</FormText>
+                                        </ElevationCard>
                                     ))
                                 }
-                                <div className="buttonEdit">
-                                    <Button variant="outline-secondary" onClick={() => setModeEditProfile(true)}>
-                                        Editar
-                                    </Button>
-                                </div>
+                                <ElevationCard>
+                                    <div className="buttonEdit">
+                                        <div><FormText>última atualização {format(currentUser.updatedAt, 'pt_BR')}</FormText></div>
+                                        <Button variant="outline-secondary" onClick={() => setModeEditProfile(true)}>
+                                            Editar
+                                        </Button>
+                                    </div>
+                                </ElevationCard>
                             </div>
                         </Card.Body>
                 }

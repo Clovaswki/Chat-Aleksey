@@ -9,11 +9,14 @@ import ComponentFriend from '../componentFriend';
 //Api rest server
 import Api from '../../services/api'
 
+//error handling
+import { errorHandling } from '../../helpers/errorHandling';
+
 //Contexts
-    //Context Auth
-    import ContextAuth from '../../contexts/provider/auth'
-    //Context chat
-    import { ContextChat } from '../../contexts/chat/chatContext';
+//Context Auth
+import ContextAuth from '../../contexts/provider/auth'
+//Context chat
+import { ContextChat } from '../../contexts/chat/chatContext';
 
 export default function CardAddFriends({ }) {
 
@@ -29,17 +32,17 @@ export default function CardAddFriends({ }) {
 
     //side effect get data of database
     useEffect(() => {
-        async function fetchDataUsers(){
+        async function fetchDataUsers() {
             var getData = await getUsers()
             setTimeout(() => [setUsers([...getData]), setIsLoader(false)], 500)//test
         }
-        async function getConversations(){
+        async function getConversations() {
             try {
                 setConversationsOfUser([...conversations])
                 /*var response = await Api.get('/chat/get-conversations/'+currentUser.id)
                 setConversationsOfUser([...response.data])*/
             } catch (error) {
-                console.log(error)     
+                errorHandling(error, 'cardAddFriends')
             }
         }
         fetchDataUsers()
@@ -50,26 +53,23 @@ export default function CardAddFriends({ }) {
     const getUsers = async () => {
         try {
             var response = await Api.get('/user/get-users')
-            
+
             var usersFiltered = response.data.filter(user => user._id !== currentUser.id)
-            
+
             return usersFiltered
-            
+
         } catch (error) {
-            if(error.response.status === 401){
-                setMessageError('Sua sessão expirou!')
-                setTimeout(() => document.location.reload(), 1000)//refresh
-            }
+            errorHandling(error, 'cardAddFriends')
         }
     }
-    
+
 
     //function search users through of a input
     const searchUser = async (search) => {
 
         if (search !== '') {
 
-            if(!users.length > 0){
+            if (!users.length > 0) {
                 //var getData = await getUsers()
                 var getData = allUsers
                 all_users = [...getData]
@@ -81,12 +81,12 @@ export default function CardAddFriends({ }) {
             var filteredUsers = all_users.filter(user => user.name.toLowerCase().includes(search))
             setUsers([...filteredUsers])
 
-            filteredUsers.length == 0 
-            ? setNoResults(search)//render message "no results"
-            : setNoResults('')
+            filteredUsers.length == 0
+                ? setNoResults(search)//render message "no results"
+                : setNoResults('')
 
         } else {
-            
+
             setNoResults('')
 
             setIsLoader(true)//show loader icon
@@ -130,25 +130,33 @@ export default function CardAddFriends({ }) {
                         </div>
                         <div className="users">
                             {
-                                noResults && 
-                                <div className='cardNoResults'>
-                                    <div>
-                                        <img src="/img/noSearch.png" alt="noResults"/>
-                                        <p>Sem resultados para "{noResults}"</p>
+                                noResults ?
+                                    <div className='cardNoResults'>
+                                        <div>
+                                            <img src="/img/noSearch.png" alt="noResults" />
+                                            <p>Sem resultados para "{noResults}"</p>
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                            {   
-                                isLoader ?
-                                <div className='spinnerAddFriends'><Spinner animation="grow" variant="secondary"/></div>
-                                :
-                                <ul className="usersList">
-                                    {
-                                        users.map((user, index) => (
-                                            <ComponentFriend user={user} conversationsOfUser={conversationsOfUser} key={index} />
-                                        ))
-                                    }
-                                </ul>
+
+                                    :
+                                    isLoader ?
+                                        <div className='spinnerAddFriends'><Spinner animation="grow" variant="secondary" /></div>
+                                        :
+                                        users.length > 0 ?
+                                            <ul className="usersList">
+                                                {
+                                                    users.map((user, index) => (
+                                                        <ComponentFriend user={user} conversationsOfUser={conversationsOfUser} key={index} />
+                                                    ))
+                                                }
+                                            </ul>
+                                            :
+                                            <div className='component-withoutUsers'>
+                                                <div>
+                                                    <img src="/img/withoutUsers.png" alt="users" />
+                                                    <small>Nenhum usuário encontrado</small>
+                                                </div>
+                                            </div>
                             }
                         </div>
                     </div>

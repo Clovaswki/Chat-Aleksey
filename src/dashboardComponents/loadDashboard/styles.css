@@ -1,0 +1,36 @@
+.loadDashboard{
+    width: 100%;
+    height: 100vh;
+}
+.loadDashboard .centerLoadDashboard{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.topInfoUserAdmin {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.topInfoUserAdmin span img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit:  fill;
+    padding: 5px;
+}
+
+.centerLogoAdminLoad span{
+    display:  flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+.centerLogoAdminLoad span small{
+    color: #477ec7;
+    font-weight: bold;
+}

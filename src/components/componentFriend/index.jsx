@@ -11,10 +11,19 @@ import { ContextChat } from '../../contexts/chat/chatContext';
 //Api rest
 import Api from '../../services/api';
 
+//error handling
+import { errorHandling } from '../../helpers/errorHandling';
+
 export default function ComponentFriend({ user, conversationsOfUser }) {
 
     const currentUser = ContextAuth()
-    const { setMessageError, setConversations, conversations } = ContextChat()
+    const { 
+        setMessageError, 
+        setConversations, 
+        conversations, 
+        setImmutableConversations,
+        immutableConversations 
+    } = ContextChat()
     const [myFriend, setMyFriend] = useState(false)
 
     //format name
@@ -56,27 +65,25 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
             if(response.status === 201){
                 setMyFriend(true)
              
-                conversations.includes('none')
-                ? //if there are no conversations
-                setConversations([{
+                //payload of new conversation
+                var payload = {
                     _id: response.data._id,
                     members: [NewConversation.senderId, NewConversation.receivedId]
-                }])
-                : //if there are conversations
-                setConversations([...conversations, {
-                    _id: response.data._id,
-                    members: [NewConversation.senderId, NewConversation.receivedId]
-                }])
+                }
+
+                if(conversations.includes('none')){
+                     //if there are no conversations
+                        setConversations([payload])
+                        setImmutableConversations([payload])
+                }else{
+                    //if there are conversations
+                       setConversations([...conversations, payload])
+                       setImmutableConversations([...immutableConversations, payload])
+                }
             }
 
         } catch (error) {
-            if(error.response.status === 401){
-                setMessageError('Sua sessão expirou!')
-                setTimeout(() => document.location.reload(), 1000)//refresh
-            }
-            if(error.message.status === 500){
-                setMessageError('Erro interno!')
-            }
+            errorHandling(error, 'componentFriend')
         }       
     }
 
@@ -85,7 +92,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
             <Card>
                 <Card.Body className='cardBodyUser'>
                     <div className="userInfo">
-                        <img src={user.picture ? user.picture : "/img/noAvatar.png"} alt="user" />
+                        <img src={user.picture ? user.picture : "/img/noAvatar.png"} alt="user" referrerpolicy="no-referrer" />
                         <div>{name}</div>
                     </div>
                     <div className="Buttons">

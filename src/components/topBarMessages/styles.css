@@ -4,6 +4,7 @@
     /* background-color: #b9dce7; */
     background-image: linear-gradient(to right, #B9DCE7, #1877F2);
     display: flex;
+    cursor: pointer;
 }
 .icons div{
     padding: 10px;

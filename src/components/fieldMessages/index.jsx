@@ -16,6 +16,10 @@ import ModalMessage from "../modalMessage";
 //Api rest
 import Api from "../../services/api";
 
+//error handling
+import { errorHandling } from "../../helpers/errorHandling";
+import CardEmojis from "../cardEmojis/cardEmojis";
+
 const FieldMessages = () => {
 
     const [messages, setMessages] = useState([]) //messages of conversation
@@ -37,6 +41,10 @@ const FieldMessages = () => {
         messageId: '',
         userId: ''
     })
+
+    //active card emojis
+    const [cardEmojis, setCardEmojis] = useState(false)
+    const [messageWithEmoji, setMessageWithEmoji] = useState('')
     
     //get new message of websocket server
     useEffect(() => {
@@ -55,7 +63,7 @@ const FieldMessages = () => {
                 setMessages(response.data)
                 setNewMessage('')
             }catch(error){
-                console.log(error)
+                errorHandling(error, 'fieldMessages')
             }
         }
         getMessages()
@@ -96,7 +104,7 @@ const FieldMessages = () => {
     //post of new message
     const handleSubmit = async (event) => {
         event && event.preventDefault()
-        
+
         const newMsg = {
             conversationId: currentChat._id,
             sender: currentUser.id,
@@ -128,7 +136,7 @@ const FieldMessages = () => {
             }
             setNewMessage('')
         }catch(error){
-            console.log(error)
+            errorHandling(error, 'fieldMessages')
         }
     }
 
@@ -159,6 +167,13 @@ const FieldMessages = () => {
         scrollRef.current?.scrollIntoView({behavior: 'smooth'}) 
     }, [messages])
 
+
+    //add emoji at message
+    useEffect(() => {
+        setNewMessage(newMessage+messageWithEmoji)
+        setMessageWithEmoji('')
+    }, [messageWithEmoji])
+
     return (
         <>
         {
@@ -185,8 +200,15 @@ const FieldMessages = () => {
                     ))
                 }
             </div>
+
+            <CardEmojis 
+                setCardEmojis={setCardEmojis} 
+                cardEmojis={cardEmojis}
+                setMessageWithEmoji={setMessageWithEmoji}
+            />
+
             <div className="input">
-                <form onSubmit={event => [handleSubmit(event), handleStateOfWrite(false)]}>
+                <form onSubmit={event => [handleSubmit(event), handleStateOfWrite(false), setCardEmojis(false)]}>
                     <input 
                         type="text" 
                         placeholder="Escreva uma mensagem" 
@@ -196,7 +218,18 @@ const FieldMessages = () => {
                         onBlur={() => handleStateOfWrite(false)}
                         onKeyDown={() => handleStateOfWrite(true)}
                     />
-                    <a type="submit" onClick={() => [handleSubmit(), handleStateOfWrite(false)]}><img src="/img/send.png" alt="sendIcon"/></a>
+                    <div className="btnsFieldMessages">
+                        <a className="btnEmojis" onClick={() => setCardEmojis(cardEmojis ? false : true)}>
+                            <img src="/img/emoji.png" alt="emoji" />
+                        </a>
+                        <a type="submit" onClick={() => [
+                            handleSubmit(), 
+                            handleStateOfWrite(false), 
+                            setCardEmojis(false)]}
+                        >
+                            <img src="/img/send.png" alt="sendIcon"/>
+                        </a>
+                    </div>
                 </form>
             </div>
         </div>

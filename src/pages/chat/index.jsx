@@ -17,6 +17,11 @@ import ErrorMessage from "../../components/errorMessage";
 import LoadChat from "../../components/cardLoadChat";
 import ButtonAddFriendsInConversations from "../../components/buttonAddFriendsInConversations";
 import ModalAddDescription from "../../components/modalAddDescription";
+import CardShowFriendProfile from "../../components/cardShowFriendProfile";
+import ButtonShowFeedback from "../../components/cardFeedback/buttonShowFeedback";
+
+//helpers
+import { errorHandling } from "../../helpers/errorHandling";
 
 //contexts
     //auth context
@@ -25,6 +30,7 @@ import ModalAddDescription from "../../components/modalAddDescription";
     import { ChatContext } from '../../contexts/chat/chatContext';
 //Api rest
 import Api from "../../services/api";
+import CardFeedback from "../../components/cardFeedback";
 
 const Chat = () => {
 
@@ -32,27 +38,36 @@ const Chat = () => {
     const [conversations, setConversations] = useState([])
     const [currentChat, setCurrentChat] = useState(null)
     const [friendsOnline, setFriendsOnline] = useState([]) //friend connected on the websocket server
-    const [activeCardSearchFriends, setActiveCardSearchFriends] = useState(false) //render friends search card
-    const [activeCardChangeProfile, setActiveChangeProfile] = useState(false)//render profile change card
     const [modeEditProfile, setModeEditProfile] = useState(false)//mode of edition on the interface of profile user
     const [messageError, setMessageError] = useState('')//error message
     const [noResults, setNoResults] = useState('')//no results for search
     const [allUsers, setAllUsers] = useState([])//all users of database
     const [writing, setWriting] = useState({})//set writing on the input
     const socket = useRef()
-    const [cardFriendsMaxWidth, setCardFriendsMaxWidth] = useState(false)//component of friends online dynamic
     const [loadChat, setLoadChat] = useState(true)//component load chat
+    const [cardFriendsMaxWidth, setCardFriendsMaxWidth] = useState(false)//component of friends online dynamic
+    const [activeCardChangeProfile, setActiveChangeProfile] = useState(false)//render profile change card
+    const [activeCardSearchFriends, setActiveCardSearchFriends] = useState(false) //render friends search card
     const [activeCardAddDescription, setActiveCardAddDescription] = useState(false)//add description of profile
+    const [cardShowFriendProfile, setCardShowFriendProfile] = useState(null)//component that shows friend information
+    const [cardFeedback, setCardFeedback] = useState(false)//render feedback card
     const [arrivalMessage, setArrivalMessage] = useState({
         sender: '',
         text: '',
         createdAt: ''
     })// new message that arrived
 
+    //all conversations of user in a immutable state
+        //object: filters
+    const [immutableConversations, setImmutableConversations] = useState([])
+
     //check if a profile description exists
     useEffect(() => {
         !currentUser.description && setActiveCardAddDescription(true)
     }, [])
+
+    //disable component friend profile
+    useEffect(() => setCardShowFriendProfile(null), [currentChat])
 
     useEffect(() => {
         //connection with websocket server
@@ -112,32 +127,35 @@ const Chat = () => {
         //get conversations of user
         async function getConversations(){
             try{
-                var response = await Api.get(`/chat/get-conversations/${currentUser.id}`)
-                
-                response.data.length > 0
-                ? setConversations([...response.data])
-                : setConversations(['none'])
+                var response = await Api.get(`/chat/get-conversations/${currentUser.id}`, {
+                    headers:{
+                        reservetokenaccess: currentUser.token//same token//gambiarra
+                    }
+                })
+
+                if(response.data.length > 0){
+                    setConversations([...response.data])
+                    setImmutableConversations([...response.data])// set state immutable conversations
+                }else{
+                    setConversations(['none'])
+                }
                 
             }catch(error){
-                if(error.response.status === 401){
-                    setMessageError('Sua sessão expirou!')
-                    setTimeout(() => document.location.reload(), 1000)//refresh
-                }
-                console.error(error)
+                errorHandling(error, 'chat')
             }
         }
 
         //get all users of chat app
         async function getAllUsers(){
             try{
-                var response = await Api.get('/user/get-users')
+                var response = await Api.get('/user/get-users', {
+                    headers: {
+                        reservetokenaccess: currentUser.token//same token//gambiarra
+                    }
+                })
                 setAllUsers([...response.data])
             }catch(error){
-                if(error.response.status === 401){
-                    setMessageError('Sua sessão expirou!')
-                    setTimeout(() => document.location.reload(), 1000)//refresh
-                }
-                new Error(error)
+                errorHandling(error, 'chat')
             }
         }
         getConversations()
@@ -169,7 +187,12 @@ const Chat = () => {
             modeEditProfile,
             setNoResults,
             cardFriendsMaxWidth,
-            setActiveCardAddDescription
+            setActiveCardAddDescription,
+            setCardShowFriendProfile,
+            cardShowFriendProfile,
+            setImmutableConversations,
+            immutableConversations,
+            setCardFeedback
         }}>
             {
                 loadChat ?
@@ -222,23 +245,32 @@ const Chat = () => {
                         ? <FieldMessages/> 
                         : <WelcomeChat/>
                     }
-                    <div className={"FriendsOnline " + (cardFriendsMaxWidth ? "maxWidth" : "minWidth")}>
-                        <div className="topBarOnline">
-                            <div className="divIconBack">
-                                <img className="iconBack" src="/img/iconBack.png" alt="back" onClick={() => setCardFriendsMaxWidth(cardFriendsMaxWidth ? false : true)}/>
+                    {
+                        cardShowFriendProfile ?
+                        <CardShowFriendProfile/>
+                        :
+                        <div className={"FriendsOnline " + (cardFriendsMaxWidth ? "maxWidth" : "minWidth")}>
+                            <div className="topBarOnline">
+                                <div className="divIconBack">
+                                    <img className="iconBack" src="/img/iconBack.png" alt="back" onClick={() => setCardFriendsMaxWidth(cardFriendsMaxWidth ? false : true)}/>
+                                </div>
+                                {
+                                    cardFriendsMaxWidth && componentText_friendsOnline
+                                }
                             </div>
-                            {
-                                cardFriendsMaxWidth && componentText_friendsOnline
-                            }
+                            <ul>
+                                {
+                                    friendsOnline.map( (friend, index) => (
+                                        <FriendOnline key={index} friend={friend}/>
+                                    )) 
+                                }
+                            </ul>
                         </div>
-                        <ul>
-                            {
-                                friendsOnline.map( (friend, index) => (
-                                    <FriendOnline key={index} friend={friend}/>
-                                )) 
-                            }
-                        </ul>
-                    </div>
+                    }
+                    {
+                        cardFeedback && <CardFeedback/>
+                    }
+                    {!cardFeedback && <ButtonShowFeedback/>}
                 </div>
                 </>
             }

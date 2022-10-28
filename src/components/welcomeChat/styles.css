@@ -19,13 +19,11 @@
 .showWelcome{
     animation: showWelcomeComponent;
     animation-duration: 700ms;
-    animation-delay: 100ms;
 }
 @keyframes showWelcomeComponent{
     from{
         opacity: 0;
-        width: 10px;
-        height: 10px;
+        transform: scale(.1, .1);
     }
 }
 

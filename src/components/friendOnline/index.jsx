@@ -31,7 +31,7 @@ const FriendOnline = ({friend}) => {
     return(
         <li className="cardFriend">
             <div className="iconImage">
-                <img src={user.picture ? user.picture : "/img/noAvatar.png"} alt="friendImg"/>
+                <img src={user.picture ? user.picture : "/img/noAvatar.png"} referrerpolicy="no-referrer" alt="friendImg"/>
                 <span></span>
             </div>
             {

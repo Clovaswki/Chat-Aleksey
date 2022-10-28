@@ -24,9 +24,26 @@
 }
 .cardProfile .topCardProfile{
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
 }
+
+.topCardProfile small{
+    color: #c23f3f;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12pt;
+    transition: 300ms;
+    border-radius: 10px;
+    padding: 0px 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.topCardProfile small:hover{
+    font-size: 10pt;
+   background-color: #f5f5f5;
+}
+
 .imgProfile{
     width: 150px;
     height: 150px;
@@ -74,8 +91,8 @@
 .infoProfile .buttonEdit{
     display: flex;
     width: 100%;
-    align-items: flex-end;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
 }
 
 

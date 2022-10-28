@@ -1,0 +1,133 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Sarabun&display=swap');
+
+.dashboardCard{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-image: radial-gradient(circle, rgb(24, 119, 242, .5), rgb(185, 220, 231, .2));
+}
+
+.bodyDashboard{
+    flex: 1;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    gap: 10px;
+}
+
+.bodyDashboard .graphs{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.graphs .graphsGroupOne{
+    flex: 1;
+    display: flex;
+    gap: 5px;
+}
+
+.graphsGroupOne .card1, .card2{
+    flex: 1;
+    padding: 5px;
+}
+.graphsGroupOne .card1:hover, .card2:hover{
+    padding: 0px;
+}
+
+.card1 .graphy1,  .graphy2{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+/* legends */
+.graphy1 .legendGraphy1{
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+.legendGraphy1 small{
+    margin-left: -3px;
+    opacity: .7;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10pt;
+}
+.legendGraphy1 span{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: -37px;
+}
+
+.legendGraphy1 span img{
+    width: 20px;
+    height: 20px;
+}
+.legendGraphy1 span p{
+    font-size: 16pt;
+    margin: 0;
+}
+.graphy2 .legendGraphy2{
+    display: flex;
+    flex-direction: column;
+    color: black;
+}
+.legendGraphy2 small{
+    margin-left: -3px;
+    opacity: .7;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10pt;
+}
+.legendGraphy2 span{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: -37px;
+}
+.legendGraphy2 span img{
+    width: 20px;
+    height: 20px;
+}
+.legendGraphy2 span p{
+    font-size: 16pt;
+    margin: 0;
+}
+/* legends */
+
+
+.graphs .graphsGroupTwo{
+    display: flex;
+}
+
+.bodyDashboard .infoDashboard{
+    flex: .3;
+    display: flex;
+}
+
+
+/* without evaluations */
+.noEvaluations{ 
+    display: 'flex'; 
+    padding: '5px'; 
+    flex: 1;
+}
+.noEvaluations .noEvaluations-inside{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.noEvaluations .noEvaluations-inside div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+.noEvaluations .noEvaluations-inside div p{
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13pt;
+}

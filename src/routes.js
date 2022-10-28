@@ -1,5 +1,5 @@
-import React, { createContext, useState } from "react";
-import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import React, { useState } from "react";
+import { Routes, Route } from 'react-router-dom'
 
 import ContextAuth from "./contexts/provider/auth"; //context of data user
 import { RouterContext } from './contexts/router/routerContext' //router context provider
@@ -10,6 +10,7 @@ import ProtectedLayout from './components/ProtectedLayout'
 import Login from './pages/login'
 import Chat from './pages/chat'
 import Register from "./pages/register";
+import Dashboard from "./pages/dashboard";
 
 const Router = () => {
 
@@ -18,9 +19,25 @@ const Router = () => {
     return (
         <RouterContext.Provider value={{ errorRedirect, setErrorRedirect }}>
             <Routes>
-                <Route path="/" element={<ProtectedLayout> <Login /> </ProtectedLayout>} />
-                <Route path="/chat" element={<ProtectedLayout> <Chat /> </ProtectedLayout>} />
-                <Route path="/register" element={<Register />} />
+                <Route path="/" element={
+                    <ProtectedLayout> 
+                        <Login /> 
+                    </ProtectedLayout>
+                    } 
+                />
+                <Route path="/chat" element={
+                    <ProtectedLayout> 
+                        <Chat /> 
+                    </ProtectedLayout>
+                    } 
+                />
+                <Route path="/register" element={<Register/>} />
+                <Route path='/admin' element={
+                    <ProtectedLayout> 
+                        <Dashboard/> 
+                    </ProtectedLayout>
+                    }
+                />
             </Routes>
         </RouterContext.Provider>
     )

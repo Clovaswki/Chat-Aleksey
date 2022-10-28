@@ -21,7 +21,7 @@ const TopBar = ({ }) => {
     return (
         <div className="topBarChat">
             <div className="icons">
-                <img src={picture ? picture : "/img/noAvatar.png"} alt="user" />
+                <img src={picture ? picture : "/img/noAvatar.png"} alt="user" referrerpolicy="no-referrer"/>
             </div>
             <div className="menuList">
                 <div onClick={() => setActiveCardSearchFriends(true)}>

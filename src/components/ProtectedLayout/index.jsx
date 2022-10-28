@@ -22,6 +22,11 @@ const ProtectedLayout = ({children}) => {
             if(currentUser?.auth) {
                 return navigate('/chat') 
             }   
+        }else if(location.pathname === '/admin'){
+
+            //redirect to page login if authentication does not exist
+            if(!currentUser?.auth) navigate('/')
+
         }
     }, [currentUser])
 

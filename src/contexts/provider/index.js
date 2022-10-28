@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Api from '../../services/api'
 import { ContextRouter } from '../router/routerContext'
 
-import { getUserLocalStorage, LoginReq, setUserLocalStorage } from './utils'
+import { getUserLocalStorage, LoginReq, LoginReqGoogle, setUserLocalStorage } from './utils'
 
 export const AuthContext = createContext({})
 
@@ -15,10 +15,11 @@ export const AuthProvider = ({children}) => {
     const navigate = useNavigate()
 
     useEffect(() => {    
+        //request to check if token is valid
         async function verifyJWT(){
             try{
                 var response = await Api.get('/user/verify-token')
-                
+
                 if(response.data.auth){
                     var user = getUserLocalStorage()
                     setUser(user)
@@ -30,6 +31,7 @@ export const AuthProvider = ({children}) => {
         verifyJWT()
     }, [])
 
+    //authenticate with api 
     async function authenticate(email, password){
         
         var res = await LoginReq(email, password)
@@ -44,6 +46,21 @@ export const AuthProvider = ({children}) => {
         
     }
 
+    //api oauth google
+    async function authenticateGoogleApi(authWithGoogle, email){
+        var response = await LoginReqGoogle(authWithGoogle, email)
+
+        if(response.status === 200){
+            setUser(response.data)
+            setUserLocalStorage(response.data)
+            return response
+        }else{
+            return response
+        }
+
+    }
+
+    //log out
     function logout(){
         setUserLocalStorage(null)
         setUser(null)
@@ -52,7 +69,7 @@ export const AuthProvider = ({children}) => {
     }
 
     return(
-        <AuthContext.Provider value={{...user, authenticate, logout, ...error, setSocket}}>
+        <AuthContext.Provider value={{...user, authenticate, authenticateGoogleApi, logout, ...error, setSocket, socket}}>
             {children}
         </AuthContext.Provider>
     )

@@ -3,6 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useNavigate } from 'react-router-dom'
 
 //contexts
   //context auth
@@ -27,10 +28,16 @@ export default function LongMenu() {
   
   const { logout } = ContextAuth()
   const { setActiveChangeProfile } = ContextChat()
+  var navigate = useNavigate()
   
   //function active change profile card
   const changeProfileActive = () => {
     setActiveChangeProfile(true)
+  }
+
+  //navigate to admin page
+  const NavigateToAdmin = () => {
+    navigate('/admin')
   }
 
   const options = [
@@ -41,6 +48,10 @@ export default function LongMenu() {
     {
       label: 'meu perfil',
       methodOfOption: changeProfileActive
+    },
+    {
+      label: 'admin',
+      methodOfOption: NavigateToAdmin
     }
   ];
 

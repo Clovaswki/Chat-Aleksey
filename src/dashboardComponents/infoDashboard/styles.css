@@ -1,0 +1,116 @@
+@import url("https://use.typekit.net/wcc5bol.css");
+
+.inside-infoDashboard{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.topInfoDashboard{
+    padding: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topInfoDashboard img{
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid lightgray;
+    transition: 500ms;
+    margin-left: 5px;
+}
+.topInfoDashboard img:hover{
+    transform: scale(1.5, 1.5);
+}
+
+.textsTopInfoDashboard{
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+.textsTopInfoDashboard p{
+    margin: 0;
+    font-size: medium;
+    font-family: 'helvetica';
+}
+.textsTopInfoDashboard span{
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: green;
+    margin-left: 180px;
+}
+
+/* line */
+.lineInfodashboard{
+    height: 1px;
+    width: 100%;
+    background-image: linear-gradient(to left, #1877F2, #B9DCE7);
+    border-radius: 10px;
+}
+/* line */
+
+.body-infoDashboard{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info1-infodashboard{
+    display: flex;
+    transition: 200ms;
+    margin-top: 10px;
+    z-index: 3;
+}
+.info1-infodashboard:hover{
+    transform: scale(1.5, 1.5) translateX(-20%);
+}
+
+.report-infoDashboard{
+    border: 1px solid lightgray;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#reportText{
+    font-family: poppins,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 15px;
+    font-size: 13px;
+}
+
+.iconFitScreen-infoDashboard{
+    transition: 200ms;
+    cursor: pointer;
+}
+.iconFitScreen-infoDashboard:hover{
+    transform: scale(1.5, 1.5);
+}
+
+.legends-infoDashboard{
+    flex: 1;
+    margin-top: 10px;
+}
+.legends-infoDashboard .legendItem{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.legendItem span{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid gray;
+}
+.legendItem p{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10.5pt;
+    opacity: .7;
+}

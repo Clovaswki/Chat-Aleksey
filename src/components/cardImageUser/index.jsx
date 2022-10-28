@@ -15,6 +15,7 @@ export default function CardImage({img}){
                         objectFit: 'cover'
                     }} 
                     alt="userImg"
+                    referrerpolicy="no-referrer"
                 />
             </Card.Body>
         </Card>

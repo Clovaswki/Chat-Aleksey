@@ -37,7 +37,7 @@ const Conversation = ({conv, currentUser}) => {
             <div className="cardConv"> 
                 <div className="d-flex cardInfo">
                     <div className="gap-3">
-                        <img src={user.picture? user.picture: "/img/noAvatar.png"} alt="userContact"/>
+                        <img src={user.picture? user.picture: "/img/noAvatar.png"} referrerpolicy="no-referrer" alt="userContact"/>
                         {/* <p style={{margin: 0, marginTop: "50%", transform: "translateY(-50%)"}}>{user.name}</p> */}
                         <div>{user.name}</div>
                     </div>
