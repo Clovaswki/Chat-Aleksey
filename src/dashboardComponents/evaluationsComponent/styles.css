@@ -1,3 +1,7 @@
+.evaluation-card{
+    background: #F0F2F5;
+    height: 100vh;
+}
 .evaluationsBody{
     padding: 10px;
     display: flex;

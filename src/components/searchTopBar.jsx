@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import Api from "../services/api";
 
 import ContextAuth from "../contexts/provider/auth";
@@ -10,9 +10,13 @@ const SearchTopBar = ({ }) => {
     const [users, setUsers] = useState([])
     const currentUser = ContextAuth()
 
-    const { conversations, setConversations, setMessageError, setNoResults } = ContextChat()//chat context
-
-    var convs = [...conversations] //all conversations
+    const { 
+        conversations, 
+        setConversations, 
+        setMessageError, 
+        setNoResults, 
+        immutableConversations 
+    } = ContextChat()//chat context
 
     useEffect(() => {
         //get users of database
@@ -52,17 +56,11 @@ const SearchTopBar = ({ }) => {
 
         if (search !== '') {
             var filteredUsers = users.filter(user => user.name.toLowerCase().includes(search))
-            
-            if(!convs.length > 0){
-                var getConversationAll = await getConversations()
-                convs = [...getConversationAll]
-            }
 
             var filteredConversations = []
             
             filteredUsers.forEach( filteredUser =>{
-                filteredConversations = [...convs.filter( conv => conv.members.includes(filteredUser._id))]
-                //console.log(convs)
+                filteredConversations = [...immutableConversations.filter( conv => conv.members.includes(filteredUser._id))]
             })
             
             filteredConversations.length == 0 

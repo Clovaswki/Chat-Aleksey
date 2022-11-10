@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from 'react'
-import './styles.css'
+import './graphCircle.css'
 
 export default function GraphCircle({background, children}) {
 

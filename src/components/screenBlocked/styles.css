@@ -1,0 +1,56 @@
+.screenBlocked{
+    height: 0vh;
+    opacity: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 1s;
+    position: relative;
+}
+
+.showBlocked{
+    opacity: 1;
+    height: 100vh;
+}
+
+.btnBack{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+.btnBack span{
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+}
+.btnBack small{
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
+    font-size: 14px;
+    opacity: .5;
+}
+
+.logoCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.logoCenter img{
+    width: 200px;
+    height: 200px;
+}
+.logoCenter p{
+    margin: 0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 26px;
+    font-size: 20px;
+    opacity: .5;
+    margin-top: -40px;
+}

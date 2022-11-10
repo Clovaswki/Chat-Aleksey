@@ -11,22 +11,17 @@ import './userEvaluationCard.css'
     //function locale string pt_BR
         import { locale } from '../../helpers/localeStringTimeAgo'
 
-//components
-import ElevationCard from "../../components/supendedCard";
-
 //dashboard context
 import { ContextDashboard } from '../../contexts/dashboard/dashboardContext';
 
-//add styles css
-import styles from '../../helpers/styles'
 
 export default function UserEvaluationCard({ evaluation }) {
 
     const { allUsers } = ContextDashboard()
-    const [currentUser, setCurrentUser] = useState(allUsers.filter(user => user._id === evaluation.userId)[0])
+    const [currentUser, setCurrentUser] = useState(allUsers.find(user => user._id === evaluation.userId))
     
     useEffect(() => {
-        setCurrentUser(allUsers.filter(user => user._id === evaluation.userId)[0])
+        setCurrentUser(allUsers.find(user => user._id === evaluation.userId))
     }, [evaluation])
 
     //toggle comments
@@ -44,9 +39,10 @@ export default function UserEvaluationCard({ evaluation }) {
         <li>
 
             <section style={{
-                boxShadow: '1px 1px 7px rgba(0,0,0, .2)',
-                borderRadius: '5px',
-                padding: '10px'
+                boxShadow: '1px 1px 10px rgba(0,0,0, .1)',
+                borderRadius: '14px',
+                padding: '10px',
+                backgroundColor: '#fff'
             }}>
 
                 <div className='inside-userEvaluation'>
@@ -54,6 +50,7 @@ export default function UserEvaluationCard({ evaluation }) {
                         <div className='nameAndPicture-userEvaluation'>
                             <img
                                 src={currentUser.picture ? currentUser.picture : '/img/noAvatar.png'}
+                                referrerpolicy="no-referrer"
                             />
                             <span>{currentUser.name}</span>
                         </div>
@@ -85,7 +82,7 @@ export default function UserEvaluationCard({ evaluation }) {
                                             {e.questionOneLikeOrNot ? <LikeIcon/> : <NoLikeIcon/>}
                                         </span>
                                         <span className='comment-userEvaluation'>
-                                            <p>{e.content}</p>
+                                            <p>{e.comment}</p>
                                             <small>{format(e.createdAt, 'pt_BR')}</small>
                                         </span>
                                     </div>

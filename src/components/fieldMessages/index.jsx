@@ -20,6 +20,10 @@ import Api from "../../services/api";
 import { errorHandling } from "../../helpers/errorHandling";
 import CardEmojis from "../cardEmojis/cardEmojis";
 
+//manager functions backgrounds
+import { getBackground } from "../../helpers/backgrounds";
+import ChooseBackground from "../chooseBackground";
+
 const FieldMessages = () => {
 
     const [messages, setMessages] = useState([]) //messages of conversation
@@ -33,7 +37,9 @@ const FieldMessages = () => {
         allUsers, 
         setAllUsers,
         writing,
-        setMessageError 
+        setMessageError,
+        modalChangeBackground,
+        urlBackground 
     } = ContextChat()//states of chat context
     const currentUser = ContextAuth() //data of user authenticated
     const [modalDeleteMessage, setModalDeleteMessage] = useState({
@@ -42,13 +48,15 @@ const FieldMessages = () => {
         userId: ''
     })
 
+    //get choice of background on the local storage
+    const [choosedBackground, setChoosedBackground] = useState(getBackground())
+
     //active card emojis
     const [cardEmojis, setCardEmojis] = useState(false)
     const [messageWithEmoji, setMessageWithEmoji] = useState('')
     
     //get new message of websocket server
     useEffect(() => {
-        //entender essa lógica
         arrivalMessage && 
             currentChat?.members.includes(arrivalMessage.sender) &&
                 setMessages([...messages, arrivalMessage])
@@ -174,6 +182,11 @@ const FieldMessages = () => {
         setMessageWithEmoji('')
     }, [messageWithEmoji])
 
+    //add new background 
+    useEffect(() => {
+        setChoosedBackground(urlBackground || getBackground())
+    }, [urlBackground])
+
     return (
         <>
         {
@@ -185,9 +198,12 @@ const FieldMessages = () => {
                 setModalDeleteMessage={setModalDeleteMessage}
             />
         }
+        {
+            modalChangeBackground && <ChooseBackground/>
+        }
         <div className="FieldMsg">
             <TopBarMessages user={user} writing={writing}/>
-            <div className="cardMessages" style={{ backgroundImage: 'url(/img/background1.png)' }}>
+            <div className="cardMessages" style={{ backgroundImage: choosedBackground}}>
                 {
                     messages.map( (msg, index) => (
                         <div key={index} ref={scrollRef}>

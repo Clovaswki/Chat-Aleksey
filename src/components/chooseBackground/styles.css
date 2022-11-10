@@ -1,0 +1,74 @@
+.card-chooseBackground{
+    background-color: #fff;
+    border-radius: 14px;
+    width: 470px;
+    height: 70vh;
+    position: absolute;
+    z-index: 5;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
+    display: flex;
+    flex-direction: column;
+    animation: showModalBackground 500ms;
+}
+@keyframes showModalBackground{
+    from{
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.card-chooseBackground header{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.card-chooseBackground header p{
+    margin: 0;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: 900;
+    opacity: .5;
+}
+
+.threeCircles{
+    display: flex;
+    gap: 3px;
+    align-items: center;
+}
+.threeCircles #one, .threeCircles #two, .threeCircles #three{
+    height: 7px;
+    width: 7px;
+    border-radius: 50%;
+}
+#one{
+    background-color: #b9b9b9;
+}
+#two{
+    background-color: #9b9797;
+}
+#three{
+    background-color: #646262;
+}
+
+.card-chooseBackground .lineDivider{
+    width: 100%;
+    height: 2px;
+    background-image: radial-gradient(circle, rgb(67, 146, 239,.3), rgb(166, 208, 232, .1));
+}
+
+.card-chooseBackground .body-chooseBackground{
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.card-chooseBackground .text-btnBack{
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    opacity: .9;
+}

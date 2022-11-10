@@ -1,0 +1,97 @@
+.cardGraphs-users{
+    height: 200px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+.graphOne-users, .graphTwo-users, .graphThree-users{
+    height: 190px;
+    width: 300px;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.badgeGraph{
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #257EEA;
+    width: 70px;
+    height: 70px;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    position: absolute;
+    top: 5%;
+    left: 7%;
+}
+.bodyGraph{
+    width: 300px;
+    height: 160px;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    background-color: #fff;
+    display: flex;
+    flex-direction: column  ;
+    padding: 18px;
+}
+
+.bodyGraph .insideGraph-partOne{
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+.insideGraph-partOne span{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.insideGraph-partOne span small{
+    font-size: 14px;
+    opacity: .7;
+    color: #7b809a;
+    font-weight: 300;
+    line-height: 21px;
+}
+.insideGraph-partOne span h4{
+    font-size: 24px;
+    font-weight: 600;
+    font-style: normal;
+    color: #344767;
+    line-height: 33px;
+}
+.divider-insideGraph{
+    height: 1px;
+    width: 100%;
+    background-image: radial-gradient(circle, #d1d0d0 60%, lightgray 30%);
+    opacity: .4;
+}
+.insideGraph-partTwo{
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+.insideGraph-partTwo span{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.insideGraph-partTwo span h4{
+    font-family: 'Roboto';
+    color: #4caf50;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    font-style: normal;
+    margin: 0;
+}
+.insideGraph-partTwo span small{
+    font-family: 'Roboto';
+    color: #7b809a;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+}

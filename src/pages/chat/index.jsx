@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { io } from 'socket.io-client'
 
 //styles
@@ -19,18 +19,24 @@ import ButtonAddFriendsInConversations from "../../components/buttonAddFriendsIn
 import ModalAddDescription from "../../components/modalAddDescription";
 import CardShowFriendProfile from "../../components/cardShowFriendProfile";
 import ButtonShowFeedback from "../../components/cardFeedback/buttonShowFeedback";
+import ScreenBlocked from '../../components/screenBlocked'
+import CardFeedback from "../../components/cardFeedback";
 
 //helpers
 import { errorHandling } from "../../helpers/errorHandling";
 
 //contexts
-    //auth context
-    import ContextAuth from "../../contexts/provider/auth";
-    //chat context
-    import { ChatContext } from '../../contexts/chat/chatContext';
+//auth context
+import ContextAuth from "../../contexts/provider/auth";
+//chat context
+import { ChatContext } from '../../contexts/chat/chatContext';
+//router context
+import { ContextRouter } from "../../contexts/router/routerContext";
 //Api rest
 import Api from "../../services/api";
-import CardFeedback from "../../components/cardFeedback";
+
+//manager backgrounds of fields messages
+import { getBackground } from "../../helpers/backgrounds";
 
 const Chat = () => {
 
@@ -57,14 +63,25 @@ const Chat = () => {
         createdAt: ''
     })// new message that arrived
 
+    //chat blocked
+    const [componentBlocked, setComponentBlocked] = useState(false)
+
+    //modal change background
+    const [modalChangeBackground, setModalChangeBackground] = useState(false)
+    //new background url
+    const [urlBackground, setUrlBackground] = useState(getBackground())
+
     //all conversations of user in a immutable state
-        //object: filters
+    //object: filters
     const [immutableConversations, setImmutableConversations] = useState([])
+
+    const { errorRedirect } = ContextRouter()//state errors on the router
 
     //check if a profile description exists
     useEffect(() => {
         !currentUser.description && setActiveCardAddDescription(true)
     }, [])
+
 
     //disable component friend profile
     useEffect(() => setCardShowFriendProfile(null), [currentChat])
@@ -73,88 +90,94 @@ const Chat = () => {
         //connection with websocket server
         //socket.current = io('ws://localhost:3002')
         socket.current = io('https://server-socket-chat-aleksey.herokuapp.com')//heroku
-        
+
         currentUser.setSocket(socket.current) //add websocket server instance on the auth context
-        
+
         //get new message of a user
         socket.current.on('getMessage', data => {
-            
-            if(data.receivedId === currentUser.id){
+
+            if (data.receivedId === currentUser.id) {
                 delete data.receivedId
                 setArrivalMessage(data)
             }
-            
+
         })
         //
-        
+
         //get state of writing of friend
-        socket.current.on('getUserWriting', ({state, senderId, receivedId}) => {
-            
-            receivedId === currentUser.id && setWriting({state, senderId})
-            
+        socket.current.on('getUserWriting', ({ state, senderId, receivedId }) => {
+
+            receivedId === currentUser.id && setWriting({ state, senderId })
+
         })
         //
-        
+
     }, [])
-    
+
     useEffect(() => {
         //send user to websocket server 
-        socket.current.emit('addUser', {userId: currentUser.id, userName: currentUser.name})
-        
+        socket.current.emit('addUser', { userId: currentUser.id, userName: currentUser.name })
+
         //received users connected on the websocket server
         socket.current.on('getUsers', users => {
             let filteredFriends = []
-            
-            filteredFriends = [...users.filter( user => user.userId !== currentUser.id && user.userId && user.userId !== null)]
-            
+
+            filteredFriends = [...users.filter(user => user.userId !== currentUser.id && user.userId && user.userId !== null)]
+
             setFriendsOnline([...filteredFriends])
         })
         //test
-        
+
         //test
     }, [currentUser, socket])
-    
+
+    //listening errors redirect on the router of application
+    useEffect(() => {
+        setMessageError(errorRedirect)
+        setTimeout(() => setMessageError(''), 3000)
+    }, [errorRedirect])
+
     //set hide chat loader
     useEffect(() => {
 
-        if((conversations.length > 0 || conversations[0] == null) && allUsers.length > 0){
+        if ((conversations.length > 0 || conversations[0] == null) && allUsers.length > 0) {
             setLoadChat(false)
         }
-        
+
     }, [conversations, allUsers])
-    
+
     useEffect(() => {
         //get conversations of user
-        async function getConversations(){
-            try{
+        async function getConversations() {
+            try {
                 var response = await Api.get(`/chat/get-conversations/${currentUser.id}`, {
-                    headers:{
+                    headers: {
                         reservetokenaccess: currentUser.token//same token//gambiarra
                     }
                 })
 
-                if(response.data.length > 0){
+                if (response.data.length > 0) {
                     setConversations([...response.data])
                     setImmutableConversations([...response.data])// set state immutable conversations
-                }else{
+                } else {
                     setConversations(['none'])
                 }
-                
-            }catch(error){
+
+            } catch (error) {
                 errorHandling(error, 'chat')
             }
         }
 
         //get all users of chat app
-        async function getAllUsers(){
-            try{
+        async function getAllUsers() {
+            try {
                 var response = await Api.get('/user/get-users', {
                     headers: {
                         reservetokenaccess: currentUser.token//same token//gambiarra
                     }
                 })
                 setAllUsers([...response.data])
-            }catch(error){
+            } catch (error) {
                 errorHandling(error, 'chat')
             }
         }
@@ -162,13 +185,31 @@ const Chat = () => {
         getAllUsers()
     }, [currentUser])
 
+    useEffect(() => {
+        checkUserBlocked()
+    }, [])
+
+    //check user blocked
+    async function checkUserBlocked() {
+        try {
+            var response, { status } = await Api.get('/user/check-blocked/' + currentUser.id)
+
+            if (status === 200) {
+                setComponentBlocked(false)
+            }
+        } catch (error) {
+            console.log(error)
+            error.response.status === 401 && setComponentBlocked(true)
+        }
+    }
+
     const componentText_friendsOnline = (
         <div className="content p-3 showText">
             <p>Amigos Online</p>
         </div>
     )
 
-    return(
+    return (
         <ChatContext.Provider value={{
             setActiveChangeProfile,
             setActiveCardSearchFriends,
@@ -192,87 +233,96 @@ const Chat = () => {
             cardShowFriendProfile,
             setImmutableConversations,
             immutableConversations,
-            setCardFeedback
+            setCardFeedback,
+            setModalChangeBackground,
+            modalChangeBackground,
+            setUrlBackground,
+            urlBackground
         }}>
             {
-                loadChat ?
-                    <LoadChat/>
-                :
-                <>
-                {
-                    messageError && <ErrorMessage/>
-                }
-                {
-                    activeCardSearchFriends && <CardAddFriends/>
-                }
-                {   
-                    activeCardChangeProfile && <CardProfile/>   
-                }
-                {
-                    activeCardAddDescription && <ModalAddDescription/>
-                }
-                <div className="Chat">
-                    <div className="Conversations">
-                        <TopBar/>
-                        <SearchTopBar/>
-                        <ul className="Contacts">
-                            {
-                                noResults && 
-                                <div className='cardNoResultsChat'>
-                                    <div>
-                                        <img src="/img/userNotFound.png" alt="noResults"/>
-                                        <p>Nenhum usuário encontrado</p>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                conversations.includes('none')  ?
-                                
-                                <ButtonAddFriendsInConversations/>
-                                
-                                :
-                                
-                                conversations.map( (conv, index) => (
-                                    <div key={index} onClick={() => setCurrentChat(conv)} style={{height: '60px'}} className='mt-3'>
-                                        <Conversation conv={conv} currentUser={currentUser} />
-                                    </div>
-                                ))
-                            }
-                        </ul>
-                    </div>
-                    {
-                        currentChat
-                        ? <FieldMessages/> 
-                        : <WelcomeChat/>
-                    }
-                    {
-                        cardShowFriendProfile ?
-                        <CardShowFriendProfile/>
+                !componentBlocked ?
+
+                    loadChat ?
+                        <LoadChat />
                         :
-                        <div className={"FriendsOnline " + (cardFriendsMaxWidth ? "maxWidth" : "minWidth")}>
-                            <div className="topBarOnline">
-                                <div className="divIconBack">
-                                    <img className="iconBack" src="/img/iconBack.png" alt="back" onClick={() => setCardFriendsMaxWidth(cardFriendsMaxWidth ? false : true)}/>
+                        <>
+                            {
+                                messageError && <ErrorMessage />
+                            }
+                            {
+                                activeCardSearchFriends && <CardAddFriends />
+                            }
+                            {
+                                activeCardChangeProfile && <CardProfile />
+                            }
+                            {
+                                activeCardAddDescription && <ModalAddDescription />
+                            }
+                            <div className="Chat">
+                                <div className="Conversations">
+                                    <TopBar />
+                                    <SearchTopBar />
+                                    <ul className="Contacts">
+                                        {
+                                            noResults &&
+                                            <div className='cardNoResultsChat'>
+                                                <div>
+                                                    <img src="/img/userNotFound.png" alt="noResults" />
+                                                    <p>Nenhum usuário encontrado</p>
+                                                </div>
+                                            </div>
+                                        }
+                                        {
+                                            conversations.includes('none') ?
+
+                                                <ButtonAddFriendsInConversations />
+
+                                                :
+
+                                                conversations.map((conv, index) => (
+                                                    <div key={index} onClick={() => setCurrentChat(conv)} style={{ height: '60px' }} className='mt-3'>
+                                                        <Conversation conv={conv} currentUser={currentUser} />
+                                                    </div>
+                                                ))
+                                        }
+                                    </ul>
                                 </div>
                                 {
-                                    cardFriendsMaxWidth && componentText_friendsOnline
+                                    currentChat
+                                        ? <FieldMessages />
+                                        : <WelcomeChat />
                                 }
-                            </div>
-                            <ul>
                                 {
-                                    friendsOnline.map( (friend, index) => (
-                                        <FriendOnline key={index} friend={friend}/>
-                                    )) 
+                                    cardShowFriendProfile ?
+                                        <CardShowFriendProfile />
+                                        :
+                                        <div className={"FriendsOnline " + (cardFriendsMaxWidth ? "maxWidth" : "minWidth")}>
+                                            <div className="topBarOnline">
+                                                <div className="divIconBack">
+                                                    <img className="iconBack" src="/img/iconBack.png" alt="back" onClick={() => setCardFriendsMaxWidth(cardFriendsMaxWidth ? false : true)} />
+                                                </div>
+                                                {
+                                                    cardFriendsMaxWidth && componentText_friendsOnline
+                                                }
+                                            </div>
+                                            <ul>
+                                                {
+                                                    friendsOnline.map((friend, index) => (
+                                                        <FriendOnline key={index} friend={friend} />
+                                                    ))
+                                                }
+                                            </ul>
+                                        </div>
                                 }
-                            </ul>
-                        </div>
-                    }
-                    {
-                        cardFeedback && <CardFeedback/>
-                    }
-                    {!cardFeedback && <ButtonShowFeedback/>}
-                </div>
-                </>
+                                {
+                                    cardFeedback && <CardFeedback />
+                                }
+                                {!cardFeedback && <ButtonShowFeedback />}
+                            </div>
+                        </>
+                    :
+                    <ScreenBlocked />
+
             }
         </ChatContext.Provider>
     )

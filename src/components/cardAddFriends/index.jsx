@@ -26,9 +26,7 @@ export default function CardAddFriends({ }) {
     const [noResults, setNoResults] = useState('')
     const currentUser = ContextAuth()
 
-    const { setActiveCardSearchFriends, setMessageError, allUsers, setAllUsers, conversations } = ContextChat()//provider of component chat
-
-    var all_users = [...users] //array with all the users
+    const { setActiveCardSearchFriends, allUsers, setAllUsers, conversations } = ContextChat()//provider of component chat
 
     //side effect get data of database
     useEffect(() => {
@@ -69,14 +67,8 @@ export default function CardAddFriends({ }) {
 
         if (search !== '') {
 
-            if (!users.length > 0) {
-                //var getData = await getUsers()
-                var getData = allUsers
-                all_users = [...getData]
-            }
-
             //filter layer
-            all_users = all_users.filter(user => user._id !== currentUser.id)
+            var all_users = allUsers.filter(user => user._id !== currentUser.id)
 
             var filteredUsers = all_users.filter(user => user.name.toLowerCase().includes(search))
             setUsers([...filteredUsers])

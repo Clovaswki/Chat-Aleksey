@@ -1,47 +1,110 @@
+import { useState, useEffect } from 'react';
+import { IconButton } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import './styles.css'
 
 //components
 import ElevationCard from '../../components/supendedCard'
-import GraphLine from "../../dashboardComponents/graphLine";
-import GraphCircle from "../../dashboardComponents/graphCircle";
+import CardGraphLine from "../../dashboardComponents/cardGraphLine";
+import CardGraphCircle from '../cardGraphCircle';
+import InfoDashboard from '../infoDashboard';
+import BreadcrumbAdmin from '../breadcrumbs/index'
+import InfoDashboardTest from '../infoDashboardTest';
+
+//icons
+import PieChartIcon from '@mui/icons-material/PieChart';
+import RateReviewIcon from '@mui/icons-material/RateReview'
 
 //dashboard context
 import { ContextDashboard } from '../../contexts/dashboard/dashboardContext';
-import InfoDashboard from '../infoDashboard';
-import { useEffect } from 'react';
-import { useState } from 'react';
+
+//auth context
+import ContextAuth from '../../contexts/provider/auth';
 
 export default function GridGraphComponent() {
 
     const { evaluationsGraphCircle, evaluationsGraphLine, allUsers, evaluations } = ContextDashboard()
+    const { name, picture, logout } = ContextAuth()
 
     //correct number of reviews
     const [correctNumberEvaluations, setCorrectNumberEvaluations] = useState(0)
 
+    const navigate = useNavigate()
+
     useEffect(() => {
-        //count number of users who rated
-        function countEvaluationsByUser() {
-
-            var correctNumber = []
-
-            evaluations.forEach(evaluation => {
-
-                if (!correctNumber.includes(evaluation.userId)) {
-
-                    correctNumber.push(evaluation.userId)
-
-                }
-
-            })
-
-            setCorrectNumberEvaluations(correctNumber.length)
-
-        }
         countEvaluationsByUser()
-    }, [evaluations, allUsers])
+    }, [evaluations])
+
+    //count number of users who rated
+    function countEvaluationsByUser() {
+
+        var correctNumber = []
+
+        evaluations.forEach(evaluation => {
+
+            if (!correctNumber.includes(evaluation.userId)) {
+
+                correctNumber.push(evaluation.userId)
+
+            }
+
+        })
+
+        setCorrectNumberEvaluations(correctNumber.length)
+
+    }
+
+    //data of circle graphs
+    const cardsGraphsCircle = [
+        {
+            iconBadge: <PieChartIcon sx={{ color: '#ffff' }} fontSize='large' />,
+            background: 'lightblue',
+            headTitle: 'Preferência',
+            value: `${evaluationsGraphCircle.like}/${evaluations.length}`,
+            stringOfValue: 'de usuários estão gostando',
+            iconValue: '/img/like.png',
+            like: evaluationsGraphCircle.like,
+            total: evaluations.length
+        },
+        {
+            iconBadge: <RateReviewIcon sx={{ color: '#ffff' }} fontSize='large' />,
+            background: 'lightgreen',
+            headTitle: 'Feedbacks',
+            value: `${correctNumberEvaluations}/${allUsers.length}`,
+            stringOfValue: 'de feedbacks no sistema',
+            iconValue: '/img/feedback.png',
+            like: correctNumberEvaluations,
+            total: allUsers.length
+        }
+    ]
 
     return (
-        <div className="dashboardCard">
+        <div className="dashboardCard" >
+            <div className='header-dashboardCard'>
+                <BreadcrumbAdmin>
+                    {{
+                        component: 'Dashboard'
+                    }}
+                </BreadcrumbAdmin>
+                <div className='welcome-headerDashboard'>
+                    <img src="/img/handshake.png" alt="welcome" />
+                    <small>Bem vindo, Mr {name}</small>
+                </div>
+                <div className='infoUser-headerDashboard'>
+                    <span id='infoUser-header'>
+                        <img src={picture ? picture : '/img/noAvatar.png'} alt="user" />
+                        <div>
+                            <p>{name}</p>
+                            <small>Admin</small>
+                        </div>
+                    </span>
+                    <span id='btn-headerDashboard' onClick={() => [logout(), navigate('/')]}>
+                        <IconButton>
+                            <img src="/img/quit.png" alt="quit" />
+                        </IconButton>
+                    </span>
+                </div>
+            </div>
             <div className="bodyDashboard">
                 {
                     evaluationsGraphCircle === '' && evaluationsGraphLine === '' ?
@@ -65,61 +128,27 @@ export default function GridGraphComponent() {
                         :
                         <div className="graphs">
                             <div className="graphsGroupOne">
-                                <div className="card1">
-                                    <ElevationCard height={'100%'} border_radius={'5px'}>
-                                        <div className="graphy1">
-                                            <GraphCircle background={'brown'}>
-                                                {
-                                                    {
-                                                        yes: evaluationsGraphCircle.like,
-                                                        total: evaluationsGraphCircle.totalUsers
-                                                    }
-                                                }
-                                            </GraphCircle>
-                                            <div className="legendGraphy1">
-                                                <small>
-                                                    Preferência
-                                                </small>
-                                                <span>
-                                                    <img src="/img/like.png" alt="likeIcon" />
-                                                    <p>{evaluationsGraphCircle.like}/{evaluations.length}</p>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </ElevationCard>
-                                </div>
-                                <div className="card2">
-                                    <ElevationCard height={'100%'} border_radius={'5px'}>
-                                        <div className="graphy2">
-                                            <GraphCircle background={'lightgreen'}>
-                                                {
-                                                    {
-                                                        yes: correctNumberEvaluations,
-                                                        total: allUsers.length
-                                                    }
-                                                }
-                                            </GraphCircle>
-                                            <div className="legendGraphy2">
-                                                <small>
-                                                    Feedbacks
-                                                </small>
-                                                <span>
-                                                    <img src="/img/users.png" alt="likeIcon" />
-                                                    <p>{correctNumberEvaluations}/{allUsers.length}</p>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </ElevationCard>
-                                </div>
+
+                                {/* reformando */}
+                                {
+                                    cardsGraphsCircle.map((card, index) => (
+                                        <CardGraphCircle key={index}>
+                                            {
+                                                card
+                                            }
+                                        </CardGraphCircle>
+                                    ))
+                                }
+
                             </div>
                             <div className="graphsGroupTwo">
-                                <GraphLine evaluationsGraphLine={evaluationsGraphLine} />
+                                <CardGraphLine evaluationsGraphLine={evaluationsGraphLine} />
                             </div>
                         </div>
                 }
                 <div className="infoDashboard">
                     <div style={{ flex: 1 }}>
-                        <InfoDashboard />
+                        <InfoDashboardTest />
                     </div>
                 </div>
             </div>

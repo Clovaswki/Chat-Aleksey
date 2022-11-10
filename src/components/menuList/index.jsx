@@ -6,16 +6,16 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useNavigate } from 'react-router-dom'
 
 //contexts
-  //context auth
-    import ContextAuth from '../../contexts/provider/auth';
-  //context chat
-    import { ContextChat } from '../../contexts/chat/chatContext';
+//context auth
+import ContextAuth from '../../contexts/provider/auth';
+//context chat
+import { ContextChat } from '../../contexts/chat/chatContext';
 
-    
-    const ITEM_HEIGHT = 38;
-    
-    
-    
+
+const ITEM_HEIGHT = 38;
+
+
+
 export default function LongMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -25,11 +25,12 @@ export default function LongMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
-  const { logout } = ContextAuth()
+
+  const [options, setOptions] = React.useState([])
+  const { logout, admin } = ContextAuth()
   const { setActiveChangeProfile } = ContextChat()
   var navigate = useNavigate()
-  
+
   //function active change profile card
   const changeProfileActive = () => {
     setActiveChangeProfile(true)
@@ -40,20 +41,36 @@ export default function LongMenu() {
     navigate('/admin')
   }
 
-  const options = [
-    {
-      label: 'sair',
-      methodOfOption: logout
-    },
-    {
-      label: 'meu perfil',
-      methodOfOption: changeProfileActive
-    },
-    {
-      label: 'admin',
-      methodOfOption: NavigateToAdmin
-    }
-  ];
+  //filter menu options: admin and user
+  React.useEffect(() => {
+
+    const menuOptions = [
+      {
+        label: 'sair',
+        methodOfOption: logout
+      },
+      {
+        label: 'meu perfil',
+        methodOfOption: changeProfileActive
+      },
+      {
+        label: 'admin',
+        methodOfOption: NavigateToAdmin
+      }
+    ];
+    var options = []
+    menuOptions.forEach( option => {
+      if(option.label === 'admin'){
+        admin && options.push(option)
+      }else{
+        options.push(option)
+      }
+    })
+
+    setOptions(options)
+
+  }, [])
+
 
   return (
     <div>
@@ -82,14 +99,18 @@ export default function LongMenu() {
           },
         }}
       >
-        {options.map((option, index) => (
-          <MenuItem key={index} onClick={() => {
-            option.methodOfOption()
-            handleClose()
-          }} sx={{height: '50px'}}>
-            {option.label}
-          </MenuItem>
-        ))}
+        {
+          options.map((option, index) => (
+
+              <MenuItem key={index} onClick={() => {
+                option.methodOfOption()
+                handleClose()
+              }} sx={{ height: '50px' }}>
+                {option.label}
+              </MenuItem>            
+
+          ))
+        }
       </Menu>
     </div>
   );

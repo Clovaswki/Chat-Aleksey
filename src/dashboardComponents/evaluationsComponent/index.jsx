@@ -8,6 +8,7 @@ import UserEvaluationCard from '../userEvaluationCard'
 
 //dashboard context
 import { ContextDashboard } from '../../contexts/dashboard/dashboardContext'
+import BreadcrumbsAdmin from '../breadcrumbs'
 
 //component no results for search
 const NoSearchComponent = (
@@ -90,9 +91,18 @@ export default function EvaluationComponent() {
 
     return (
         <div className="evaluation-card">
+            <div>
+                <BreadcrumbsAdmin>
+                    {
+                        {
+                            component: 'Avaliações'
+                        }
+                    }
+                </BreadcrumbsAdmin>
+            </div>
             <div className="evaluationsBody">
                 <div>
-                    <ElevationCard border_radius={'5px'}>
+                    <ElevationCard border_radius={'14px'} elevation={3}>
                         <SearchTopDashboard 
                             setChooseFilter={setChooseFilter} 
                             chooseFilter={chooseFilter} 

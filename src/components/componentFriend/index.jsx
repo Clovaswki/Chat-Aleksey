@@ -18,7 +18,6 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
 
     const currentUser = ContextAuth()
     const { 
-        setMessageError, 
         setConversations, 
         conversations, 
         setImmutableConversations,
@@ -26,8 +25,14 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
     } = ContextChat()
     const [myFriend, setMyFriend] = useState(false)
 
-    //format name
+    //user
+    const [userAvailable, setUserAvailable] = useState(user)
     const [name, setName] = useState(user.name)
+
+    useEffect(() => {
+        setUserAvailable(user)
+        setName(user.name)
+    }, [user])
 
     if(name.length > 9){
 
@@ -92,7 +97,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
             <Card>
                 <Card.Body className='cardBodyUser'>
                     <div className="userInfo">
-                        <img src={user.picture ? user.picture : "/img/noAvatar.png"} alt="user" referrerpolicy="no-referrer" />
+                        <img src={userAvailable.picture ? user.picture : "/img/noAvatar.png"} alt="user" referrerpolicy="no-referrer" />
                         <div>{name}</div>
                     </div>
                     <div className="Buttons">

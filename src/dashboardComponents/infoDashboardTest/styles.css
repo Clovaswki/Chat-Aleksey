@@ -1,0 +1,100 @@
+.card-infoDashboard {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    position: relative;
+}
+
+.badge-infoDashboard {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    background-color: #318BEC;
+    width: 180px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge-infoDashboard p {
+    margin: 0;
+    color: #fff;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.body-infoDashboard {
+    height: 96.5%;
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    padding: 20px;
+}
+
+.data-users {
+    margin-top: 120px;
+}
+
+.data-users .cardOne {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.data-users .cardOne #logoAndTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.data-users .cardOne #logoAndTitle img {
+    width: 100px;
+    height: 100px;
+    margin-left: -30px;
+}
+
+#logoAndTitle p {
+    margin: 0;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 0px;
+    color: #344767;
+    margin-left: 20px;
+}
+
+.data-users .cardOne #lineAndProgress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#lineAndProgress .title-cardOne {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 0px;
+    color: #344767;
+    text-align: center;
+}
+
+#lineAndProgress .line-cardOne {
+    height: 1px;
+    width: 100%;
+    margin-top: 20px;
+    background-image: radial-gradient(circle, rgb(173, 166, 166, .5), rgb(158, 151, 151, .1));
+}
+#lineAndProgress .linearProgress-cardOne{
+    margin-top: 10px;
+}

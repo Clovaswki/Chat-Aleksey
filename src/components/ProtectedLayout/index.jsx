@@ -25,7 +25,7 @@ const ProtectedLayout = ({children}) => {
         }else if(location.pathname === '/admin'){
 
             //redirect to page login if authentication does not exist
-            if(!currentUser?.auth) navigate('/')
+            if(!currentUser?.auth) return navigate('/')
 
         }
     }, [currentUser])

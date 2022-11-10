@@ -1,0 +1,154 @@
+.cardSettingsUser{
+    position: fixed;
+    width: 30%;
+    background-color: #fff;
+    height: 90%;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 2%;
+    z-index: 3;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .2);
+    padding: 18px;
+    flex-direction: column;
+    gap: 25px;
+    border-radius: 14px;
+}
+
+.show-cardSettingsUser{
+    display: flex;
+    animation: showCardSettingsUser 200ms;
+}
+
+@keyframes showCardSettingsUser{
+
+    from{
+        transform: translateX(100%);
+    }
+
+}
+
+.header-cardSettingsUser{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+.btnClose-cardSettingsUser{
+    display: flex;
+    justify-content: flex-end;
+}
+.infoUser-cardSettingsUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+.infoUser-cardSettingsUser img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.infoUser-cardSettingsUser p{
+    margin: 0;
+    color: #030303;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 700;
+}
+.infoUser-cardSettingsUser small{
+    margin: 0;
+    color: #344767;
+    font-size: 14px;
+    line-height: 28px;
+    font-weight: 700;
+    opacity: .5;
+}
+.line-cardSettingsUser{
+    height: 1px;
+    width: 100%;
+    background-image: radial-gradient(circle, rgb(170, 169, 169, .2), rgb(168, 162, 162, .05));
+    margin: 10px 0;
+}
+.body-cardSettingsUser{
+    flex: 1;
+}
+.card-info{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.card-info .messages-cardInfo{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-left: 10px;
+}
+.messages-cardInfo #iconMessage{
+    background-color: #F5F5F7;
+    width: 50px;
+    height: 50px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#iconMessage::before{
+    background-color: #afaeae;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    z-index: 3;
+    top: -10%;
+    right: -10%;
+    text-align: center;
+    color: #ffff;
+    font-weight: 600;
+    content: attr(data-content);
+    font-size: 12px;
+}
+
+.messages-cardInfo #textsMessage{
+    display: block;
+}
+#textsMessage p{
+    margin: 0;
+    line-height: 21px;
+    margin-bottom: 5px;
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 700;
+    color: #344767;
+}
+#textsMessage small{
+    font-family: 'Roboto';
+    font-weight: 700;
+    color: #344767;
+    font-size: 12px;
+    opacity: .7;
+}
+.card-switch{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: flex-end; */
+    width: 100%;
+}
+.card-switch .optionOne, .optionTwo{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 20px;
+}
+.card-switch .optionOne p, .optionTwo p{
+    margin: 0;
+    color: #344767;
+    line-height: 28px;
+    font-size: 14px;
+    font-weight: 700;
+    /* font-family: 'Roboto', Arial, Helvetica, sans-serif; */
+    opacity: .7;
+}

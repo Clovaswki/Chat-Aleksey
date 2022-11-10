@@ -4,6 +4,13 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    animation: test 500ms;
+}
+@keyframes test{
+    from{
+        transform: translateY(100%);
+        opacity: 0;
+    }
 }
 
 .topInfoDashboard{
@@ -90,27 +97,4 @@
 }
 .iconFitScreen-infoDashboard:hover{
     transform: scale(1.5, 1.5);
-}
-
-.legends-infoDashboard{
-    flex: 1;
-    margin-top: 10px;
-}
-.legends-infoDashboard .legendItem{
-    height: 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.legendItem span{
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1px solid gray;
-}
-.legendItem p{
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-    font-size: 10.5pt;
-    opacity: .7;
 }

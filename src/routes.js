@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { Routes, Route } from 'react-router-dom'
 
-import ContextAuth from "./contexts/provider/auth"; //context of data user
 import { RouterContext } from './contexts/router/routerContext' //router context provider
 
 //components
 import ProtectedLayout from './components/ProtectedLayout'
+import ProtectedLayoutAdmin from "./components/protectedLayoutAdmin/protectedLayoutAdmin";
+import ScreenBlocked from './components/screenBlocked'
+
 //pages
 import Login from './pages/login'
 import Chat from './pages/chat'
 import Register from "./pages/register";
-import Dashboard from "./pages/dashboard";
+import Admin from "./pages/dashboard";
 
 const Router = () => {
 
@@ -27,15 +29,15 @@ const Router = () => {
                 />
                 <Route path="/chat" element={
                     <ProtectedLayout> 
-                        <Chat /> 
+                        <Chat />
                     </ProtectedLayout>
                     } 
                 />
                 <Route path="/register" element={<Register/>} />
                 <Route path='/admin' element={
-                    <ProtectedLayout> 
-                        <Dashboard/> 
-                    </ProtectedLayout>
+                    <ProtectedLayoutAdmin> 
+                        <Admin/> 
+                    </ProtectedLayoutAdmin>
                     }
                 />
             </Routes>

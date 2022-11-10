@@ -28,7 +28,7 @@ const Conversation = ({conv, currentUser}) => {
 
         }
         getUserFriend()
-    }, [currentUser, user])
+    }, [currentUser, user, conv])
 
     return(
         <>

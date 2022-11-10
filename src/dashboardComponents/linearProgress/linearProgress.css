@@ -1,0 +1,27 @@
+.card-progress{
+    display: flex;
+    position: relative;
+    width: 120px;
+}
+.card-progress .linearProgress-background{
+    background-color: rgb(199, 191, 191);
+    width: 100%;
+    height: 7px;
+    border-radius: 14px;
+}
+.card-progress .linearProgress{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #7290F5;
+    height: 7px;
+    border-radius: 14px;
+}
+
+.percent-linearProgress small{
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: .6;
+}

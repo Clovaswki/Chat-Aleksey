@@ -77,6 +77,7 @@ const Login = () => {
             throw response.error
 
         } catch (err) {
+            if(err === 'you are blocked') return errorHandlingLogin('Você foi bloqueado(a)')
             errorHandlingLogin(err)
         }
     }
@@ -104,7 +105,7 @@ const Login = () => {
                         throw res.data.error || 'erro ao auntenticar'
                     } catch (error) {
                         setLoadGoogle(false)
-                        console.log(error)
+                        if(error === 'you are blocked') return errorHandlingLogin('Você foi bloqueado(a)')
                         return errorHandlingLogin(error)
                     }
                 }

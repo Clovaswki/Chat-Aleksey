@@ -6,6 +6,9 @@ import './sidebarAdmin.css'
 import GridViewIcon from '@mui/icons-material/GridView';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import GroupIcon from '@mui/icons-material/Group';
+import StorageIcon from '@mui/icons-material/Storage';
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 
 //dashboard context
 import { ContextDashboard } from '../../contexts/dashboard/dashboardContext'
@@ -17,7 +20,10 @@ export default function SidebarAdmin() {
 
     const navs = [
         { nav: 'Dashboard', icon: <GridViewIcon />, page: 'dashboard' },
-        { nav: 'Avaliações', icon: <AssessmentIcon />, page: 'evaluations' }
+        { nav: 'Avaliações', icon: <AssessmentIcon />, page: 'evaluations' },
+        { nav: 'Usuários', icon: <GroupIcon/>, page: 'users'}, 
+        { nav: 'Base de dados', icon: <StorageIcon/>, page: 'database'},
+        { nav: 'Configurações', icon: <SettingsApplicationsIcon/>, page: 'settings' }
     ]
 
     return (

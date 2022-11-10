@@ -21,6 +21,8 @@ import GridGraphComponent from "../../dashboardComponents/gridGraphComponent";
 import LoadDashboard from "../../dashboardComponents/loadDashboard";
 import ReportScreenEnlarge from '../../dashboardComponents/reportScreenEnlarge/reportScreenEnlarge';
 import SidebarAdmin from "../../dashboardComponents/sidebarAdmin/sidebarAdmin";
+import UsersComponent from "../../dashboardComponents/usersComponent";
+import { Grid } from "@mui/material";
 
 const Dashboard = () => {
 
@@ -37,6 +39,7 @@ const Dashboard = () => {
 
     //choosed page state
     const [choosedPage, setChoosedPage] = useState('dashboard')
+    const [componentChoosed, setComponentChoosed] = useState(<GridGraphComponent/>)
 
     //load data dashboard state
     const [loadDashboard, setLoadDashboard] = useState(true)
@@ -49,6 +52,26 @@ const Dashboard = () => {
 
     //collapsed body component
     const [collapsedBody, setCollapsedBody] = useState(false)
+
+    //all messages of database
+    const [allMessages, setAllMessages] = useState([])
+
+    //management of components - admin components
+    useEffect(() => {
+
+        const listComponents = [
+            {page: 'dashboard', component: <GridGraphComponent/>},
+            {page: 'evaluations', component: <EvaluationComponent/>},
+            {page: 'users', component: <UsersComponent/>},
+            {page: 'database', component: <div>Banco de dados</div>},
+            {page: 'settings', component: <div>Configurações</div>}
+        ]
+
+        var currentComponent = listComponents.find( component => component.page === choosedPage)
+
+        setComponentChoosed(currentComponent.component)
+
+    }, [choosedPage])
 
     //listening for updates to user reviews: websocket
     useEffect(() => {
@@ -64,6 +87,7 @@ const Dashboard = () => {
     useEffect(() => {
         fetchEvaluations()
         fetchAllUsers()
+        fetchAllMessages()
     }, [])
 
     async function fetchEvaluations(){
@@ -122,6 +146,18 @@ const Dashboard = () => {
 
     }
 
+    //fetch all messages
+    async function fetchAllMessages(){
+        try {
+            var response = await Api.get('/chat/get-allmessages')
+
+            if(response.status === 200) return setAllMessages([...response.data])
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     //set dashboard load true or false
     useEffect(() => {
 
@@ -144,17 +180,19 @@ const Dashboard = () => {
             evaluations,
             setAllUsers,
             allUsers,
-            setCollapsedBody
+            setCollapsedBody, 
+            collapsedBody,
+            socket,
+            allMessages
         }}>
             <div className="parentAdminRoute">
                 <SidebarAdmin/>
                 <div className={collapsedBody ? 'bodyAdminRouteCollapsed' : 'bodyAdminRoute'}>
                     {
                         !loadDashboard ?
-                            choosedPage == 'dashboard' ?
-                                <GridGraphComponent/>
-                                :
-                                <EvaluationComponent/>  
+                            
+                            componentChoosed
+
                             :
                             <LoadDashboard/>  
                     }

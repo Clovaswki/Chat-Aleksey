@@ -107,28 +107,6 @@ export default function InfoDashboard() {
                             </div>
                         </ElevationCard>
                     </div>
-                    <div className="legends-infoDashboard">
-                        <Card style={{ width: '100%' }}>
-                            <ListGroup variant="flush">
-                                <ListGroup.Item className='legendItem'>
-                                    <span style={{ backgroundColor: 'brown' }}></span>
-                                    <p>"sim, eu amo esse chat?"</p>
-                                </ListGroup.Item>
-                                <ListGroup.Item className='legendItem'>
-                                    <span style={{ backgroundColor: 'aqua' }}></span>
-                                    <p>"talvez"</p>
-                                </ListGroup.Item>
-                                <ListGroup.Item className='legendItem'>
-                                    <span style={{ backgroundColor: 'antiquewhite' }}></span>
-                                    <p>"não"</p>
-                                </ListGroup.Item>
-                                <ListGroup.Item className='legendItem'>
-                                    <span style={{ backgroundColor: 'pink' }}></span>
-                                    <p>"nem pagando, ele é péssimo!"</p>
-                                </ListGroup.Item>
-                            </ListGroup>
-                        </Card>
-                    </div>
                 </div>
             </div>
         </ElevationCard>

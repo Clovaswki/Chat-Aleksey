@@ -3,6 +3,9 @@ import './cardEmojis.css'
 import emojisCode from '../../helpers/emojisCode.json'
 import { useEffect } from 'react'
 
+//function add styles
+import styles from '../../helpers/styles'
+
 export default function CardEmojis({setCardEmojis, cardEmojis, setMessageWithEmoji}) {
 
     const [emojis, setEmojis] = React.useState([])
@@ -13,22 +16,13 @@ export default function CardEmojis({setCardEmojis, cardEmojis, setMessageWithEmo
         setEmojis([...emojisCode])
     }, [])
 
-    //add styles css 
-    function styles(obj, atrs) {
-        var style = []
-        Object.entries(atrs).forEach(([key, value]) => {
-            style.push(`${key}:${value};`)
-            obj.setAttribute('style', `${style.join(' ')}`)
-        })
-        style = []
-    }
-
     //event onclick
     const addEmojiInInput = emoji => setMessageWithEmoji(emoji)//add emoji at a state
 
     //get emojis of file and convert to html
     function addEmojis() {
 
+        //remove duplicate
         var filterEmojis = emojis.filter((emoji , index) => {
             return emojis.indexOf(emoji) == index;
         }) 

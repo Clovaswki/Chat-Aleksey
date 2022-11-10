@@ -57,6 +57,9 @@ export default function SearchTopDashboard({ setChooseFilter, chooseFilter, setA
 
     }
 
+    //refresh evaluations
+    
+
     return (
         <div style={{ display: 'flex' }}>
             <Form className="d-flex p-3">

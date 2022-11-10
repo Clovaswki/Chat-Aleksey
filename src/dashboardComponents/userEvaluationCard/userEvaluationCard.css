@@ -52,6 +52,8 @@
         visibility: visible;
         height: auto;
         overflow-y: auto;
+        z-index: 3;
+        background-color: #fff;
     }
 
 
