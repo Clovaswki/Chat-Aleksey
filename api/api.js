@@ -6,7 +6,7 @@
     const router = require('./routes')
 //Config
     //connect with database MongoDB
-        mongoose.connect(process.env.MONGO_URL_REDUX).then(() => {
+        mongoose.connect(process.env.MONGO_URL_REMOTE).then(() => {
             console.log('MongoDB connected...')
         }).catch( err => {
             console.log(err)
