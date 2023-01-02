@@ -1,0 +1,54 @@
+.circle-wrap {
+    display: grid;
+    grid-template-columns: repeat(1, 160px);
+    grid-gap: 80px;
+    width: 150px;
+    height: 150px;
+    background: #d9d7da;
+    border-radius: 50%;
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill-1 {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    border-radius: 50%;
+}
+
+.circle-wrap .circle .mask {
+    clip: rect(0px, 150px, 150px, 75px);
+}
+
+.circle-wrap .inside-circle {
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    background: #535151;
+    line-height: 120px;
+    text-align: center;
+    margin-top: 13px;
+    margin-left: 13px;
+    color: white;
+    position: absolute;
+    z-index: 0;
+    font-weight: 700;
+    font-size: 2em;
+}
+
+/* color animation */
+
+.mask .fill-1 {
+    clip: rect(0px, 75px, 150px, 0px);
+}
+
+.mask.full,
+.circle .fill-1 {
+    animation: fill-1 ease-in-out 1s;
+}
+
+@keyframes fill-1 {
+    0% {
+        transform: rotate(0deg);
+    }
+}

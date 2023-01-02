@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Sarabun&display=swap');
+
+.cardFirst{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(1, 1, 1, .2);
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardFirst .cardSearch{
+    width: 60%;
+    height: 80vh;
+    margin-top: 0px; 
+    animation: showModalSearch;
+    animation-duration: 500ms;
+}
+
+@keyframes showModalSearch{
+    from{
+        opacity: 0;
+        margin-top: -100%;
+    }
+}
+
+.topCard{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.iconClose{
+    border-radius: 50%;
+    padding: 2px;
+}
+.iconClose:hover{
+    background-color: #d6cece;
+    cursor: pointer;
+}
+
+
+.users .usersList{
+    padding: 0;
+    padding-bottom: 10px;
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    height: auto;
+    max-height: 320px;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    gap: 4px;
+}
+
+/*scroll styles*/
+.usersList::-webkit-scrollbar {
+    width: 10px;     
+}
+.usersList::-webkit-scrollbar-track {
+    background-color:  #a5a4a4;
+}
+.usersList::-webkit-scrollbar-thumb {
+    background-color: #c9c9c9;
+    border-radius: 5px;
+    border: 1px solid #a5a4a4;               
+}
+
+/* spinner */
+.spinnerAddFriends{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 320px;
+}
+
+/* element No results of search */
+.cardNoResults{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 320px;
+}
+.cardNoResults div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    
+}
+.cardNoResults img{
+    width: 30px;
+    height: 30px;
+}
+.cardNoResults p{
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13pt;
+}
+
+.component-withoutUsers{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 320px;
+}
+.component-withoutUsers div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.component-withoutUsers img{
+    width: 100px;
+    height: 100px;
+}
+.component-withoutUsers small{
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13pt;
+}

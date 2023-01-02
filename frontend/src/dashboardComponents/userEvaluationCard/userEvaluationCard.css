@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Sarabun&display=swap');
+
+.inside-userEvaluation{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    height: 100%;
+}
+
+.top-userEvaluation{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.nameAndPicture-userEvaluation{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.top-userEvaluation img{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 2% 12%;
+    padding: 5px;
+}
+
+.chevronIcon{
+    transform: rotate(-90deg);
+    cursor: pointer;
+}
+
+.showChevronIcon{
+    transform: rotate(-270deg);
+}
+
+.body-userEvaluation{
+    display: none;
+    visibility: hidden;
+    height: 0vh;
+    overflow-y: scroll;
+}
+
+/* show and hide comments */
+
+    .showComments{
+        display: flex;
+        visibility: visible;
+        height: auto;
+        overflow-y: auto;
+        z-index: 3;
+        background-color: #fff;
+    }
+
+
+/* show and hide comments */
+
+.body-userEvaluation section{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 5px;
+}
+
+
+.body-userEvaluation section div{
+    display: flex;
+    align-items: center;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 5px;
+    width: 100%;
+    border: 1px solid lightgray;
+    min-height: 70px;
+}
+.body-userEvaluation .comment-userEvaluation{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    opacity: .9;
+}
+.comment-userEvaluation p{
+    height: 20px;
+    margin: 0;
+    font-family: 'Roboto',sans-serif;
+}
+.comment-userEvaluation small{
+    font-size: 8pt;
+}

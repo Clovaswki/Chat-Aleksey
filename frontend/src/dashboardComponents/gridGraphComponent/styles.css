@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Sarabun&display=swap');
+
+.dashboardCard {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    /* background-image: radial-gradient(circle, rgb(24, 119, 242, .5), rgb(185, 220, 231, .2)); */
+    background-color: #F0F2F5;
+}
+
+/* header */
+
+    .header-dashboardCard {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .welcome-headerDashboard {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .welcome-headerDashboard img {
+        width: 50px;
+        height: 50px;
+        opacity: .7;
+    }
+
+    .welcome-headerDashboard small {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 0px;
+        color: #344767;
+    }
+    .infoUser-headerDashboard{
+        margin-right: 25px;
+        display: flex;
+        gap: 10px;
+    }
+    .infoUser-headerDashboard #infoUser-header{
+        display: flex;
+        gap: 10px;
+    }
+    .infoUser-headerDashboard img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+    }.infoUser-headerDashboard #infoUser-header div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+    }
+    #infoUser-header div p{
+        margin: 0;
+        line-height: 12px;
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        color: #344767;
+    }
+    #infoUser-header div small{
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-size: 11px;
+        line-height: 11px;
+        color: #344767;
+    }
+    #btn-headerDashboard{
+        display: flex;
+        align-items: center;
+    }
+    #btn-headerDashboard img{
+        width: 30px;
+        height: 30px;
+        opacity: .7;
+    }
+
+/* header */
+
+.bodyDashboard {
+    flex: 1;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    gap: 20px;
+}
+
+.bodyDashboard .graphs {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.graphs .graphsGroupOne {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.graphs .graphsGroupTwo {
+    display: flex;
+    flex: 1;
+}
+
+.bodyDashboard .infoDashboard {
+    flex: .4;
+    display: flex;
+}
+
+
+/* without evaluations */
+.noEvaluations {
+    display: 'flex';
+    padding: '5px';
+    flex: 1;
+}
+
+.noEvaluations .noEvaluations-inside {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.noEvaluations .noEvaluations-inside div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.noEvaluations .noEvaluations-inside div p {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 13pt;
+}

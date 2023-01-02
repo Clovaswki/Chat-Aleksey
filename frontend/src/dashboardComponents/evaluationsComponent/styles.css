@@ -1,0 +1,22 @@
+.evaluation-card{
+    background: #F0F2F5;
+    height: 100vh;
+}
+.evaluationsBody{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.evaluationsMessages ul{
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 49.5%);
+    gap: 10px;
+}
+
+.evaluationsMessages li{
+    height: auto;
+}

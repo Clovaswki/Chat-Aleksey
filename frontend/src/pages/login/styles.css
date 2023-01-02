@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight&display=swap');
+
+*{
+    margin: 0;
+}
+.Login{
+    width: 100%;
+    height: 100vh; 
+    display: flex;
+    justify-content: center;
+    background-image: radial-gradient(circle, rgb(24, 119, 242, .5), rgb(185, 220, 231, .5));
+    position: relative;
+}
+
+.divForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    height: 100vh;
+    z-index: 2;
+}
+
+.logoLoginChat{
+    position: absolute;
+    top: 3vh;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-image: radial-gradient(circle, rgb(24, 119, 242, .5), rgb(185, 220, 231, 1));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logoLoginChat img{
+    animation: showLogoLogin;
+    animation-duration: 800ms;
+}
+
+@keyframes showLogoLogin{
+
+    from{
+        transform: scale(10, 10) rotate(-180deg);
+        opacity: 0;
+    }
+
+}
+
+
+.divForm .cardForm{
+    width: 60%;
+    height: 90vh;
+    margin-top: 10vh;
+    border: 1px solid #c7c5c5;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 1px 1px 7px #bbb7b7;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    background-color: #fff;
+}
+
+.divForm .cardForm form{
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+    gap: 20px;
+    animation: showFormLogin;
+    animation-duration: 800ms;
+}
+
+@keyframes showFormLogin{
+    from{
+        transform: translateY(80%);
+        opacity: 0;
+    }
+}
+
+.divForm .cardForm form .inputs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;    
+}
+.inputs input{
+    width: 100%;
+}
+.divForm .cardForm #button{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.divForm .cardForm .buttonRegister{
+    width: 100%;
+    display: flex;
+    margin-top: -10px;
+}
+
+
+.modalError{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+    width: 230px;
+    animation: showError;
+    animation-duration: 200ms;
+    z-index: 5;
+}
+
+@keyFrames showError{
+    from{
+        margin-top: -10px;
+    }
+    to{
+        margin-top: 30px;
+    }
+}
+
+.btnGoogleLogin{
+    padding: 10px;
+    background-color: #ffff;
+    display: flex;
+    gap: 10px;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    color: rgba(0,0,0,0.6);
+    align-items: center;
+    cursor: pointer;
+}
+.btnGoogleLogin:hover, .btnGoogleLogin:focus{
+    opacity: .7;
+}
+
+
+@media (max-width: 795px){
+
+    .divForm{
+        width: 100%;
+        height: 100vh;
+    }
+    .divForm .cardForm{
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+    }
+
+} 

@@ -1,0 +1,44 @@
+.card-linearProgress_infoDashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.linearProgress_infoDashboard {
+    display: flex;
+    position: relative;
+    border-radius: 14px;
+}
+.linearProgress_infoDashboard:hover{
+    box-shadow: 1px 1px 10px rgba(0,0, 0, .2);
+}
+
+.linearProgress_infoDashboard #background_ID {
+    background-color: #eeeeec;
+    width: 100%;
+    border-radius: 14px;
+    flex: 1;
+    height: 17px;
+}
+
+.linearProgress_infoDashboard #progress_ID {
+    height: 17px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #E2C69D;
+    border-radius: 14px;
+}
+
+.percent_ID {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.percent_ID small {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 13px;
+    color: #008000;
+}

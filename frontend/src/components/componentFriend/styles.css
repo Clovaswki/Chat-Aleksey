@@ -1,0 +1,41 @@
+li{
+    height: 72px;
+}
+.cardBodyUser{
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    margin: 0;
+}
+
+.cardBodyUser .userInfo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.cardBodyUser .userInfo img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cardBodyUser .Buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Buttons .iconAdd{
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+}
+.Buttons .iconAdd:hover{
+    background-color: #dbd5d5;
+}
+.Buttons .iconCheck{
+    padding: 4px;
+    border-radius: 50%;
+}

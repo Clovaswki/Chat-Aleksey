@@ -1,0 +1,80 @@
+.ModalAddDescriptionCardFirst{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalAddDescription{
+    background-color: #ffff;
+    width: 500px;
+    height: 50vh;
+    padding: 10px;
+    border-radius: 14px;
+    box-shadow: 1px 1px 7px;
+    display: flex;
+    flex-direction: column;
+    animation: showModalDescription;
+    animation-duration: 500ms;
+    z-index: 2;
+}
+
+@keyframes showModalDescription{
+
+    from{
+        margin-top: -200px;
+        opacity: 0;
+    }
+
+}
+
+.topBarDescription{
+    display: flex;
+    justify-content: space-between;
+}
+
+.topBarDescription img{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #1877F2;
+    object-fit: cover;
+}
+.topBarDescription .textWelcomeDes{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+    display: flex;
+    background: -webkit-linear-gradient(top, #1877F2, #B9DCE7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.topBarDescription .closeIconDescription{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.topBarDescription .closeIconDescription:hover{
+    background-color: #f0eeee;
+}
+
+.inputDescription{
+    flex: 1;
+}
+
+.buttonsOfDescription{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.btnSaveDescription:focus{
+    background: transparent;
+}

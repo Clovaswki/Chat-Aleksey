@@ -1,0 +1,90 @@
+.cssSpriteLogin{
+    position: absolute;
+    width: 370px;
+    height: 100vh;
+    padding: 10px;
+    overflow-y: hidden;
+    transition: 200ms;
+    opacity: .5;
+}
+
+.conversationComponent{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    transition: 200ms;
+    /* visibility: hidden; */
+}
+
+.leftMessage{
+    justify-content: flex-start;
+}
+
+.leftMessage p{
+    background-color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 14px;
+    color: #302f2f;
+}
+
+.rightMessage{
+    justify-content: flex-end;
+}
+.rightMessage p{
+    background-color: #5050d3;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 14px;
+    color: #fff;
+}
+
+.hideMessages{
+    visibility: hidden;
+    animation: hideMessages;
+    animation-duration: 1s;
+}
+
+@keyframes hideMessages{
+    from{
+        visibility: visible;
+    }
+    to{
+        transform: translateY(-50%);
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+.showMessages{
+    visibility: visible;
+    animation: showMessages;
+    animation-duration: 1s;
+}
+
+@keyframes showMessages{
+    from{
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+.conversationComponentLeft p, .conversationComponentRight p{
+    padding: 10px 10px;
+    font-weight: bold;
+    border-radius: 14px;
+}
+.conversationComponentLeft p{
+    background-color: #fff;
+    color: #292828;
+}
+.conversationComponentRight p{
+    background-color: #5656e7;
+    color: #fff;
+}
+
+@media (max-width: 795px){
+    .cssSpriteLogin{
+        display: none
+    }
+}

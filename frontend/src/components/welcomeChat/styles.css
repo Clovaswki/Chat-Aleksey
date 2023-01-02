@@ -1,0 +1,39 @@
+.cardWelcome{
+    flex: 3.8; 
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.cardWelcome div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.showWelcome{
+    animation: showWelcomeComponent;
+    animation-duration: 700ms;
+}
+@keyframes showWelcomeComponent{
+    from{
+        opacity: 0;
+        transform: scale(.1, .1);
+    }
+}
+
+.cardWelcome img{
+    width: 100px;
+    height: 100px;
+}
+
+.cardWelcome p{
+    color: #58589b;
+    font-size: 18pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

@@ -1,0 +1,95 @@
+.sidebarAdmin{
+    position: fixed;
+    padding: 10px;
+    height: 100vh;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, .4);
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    transition: 500ms;
+    z-index: 10;
+}
+
+.headerSidebar{
+    padding: 10px;
+    display: flex;
+}   
+
+.headerSidebar .logoSidebar{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.imgLogo{
+    width: 60px;
+    height: 60px;
+    transition: 500ms;
+}
+.imgLogoCollapsed{
+    width: 30px;
+    height: 30px;
+    transition: 500ms;
+}
+
+.logoSidebar p{
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.bodySidebar{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: 500ms;
+}
+
+/* nav */
+
+.navSidebar{
+    width: 100%;
+    opacity: .7;
+    cursor: pointer;
+}
+.navSidebar:hover{
+    opacity: 1;
+}
+
+.navSidebar.activate{
+    border-left: 2px solid black;
+    opacity: 1;
+}
+
+.navSidebar .navSidebarInside{
+    display: flex;
+    gap: 10px;
+}
+
+/* nav */
+
+
+.navCollapsedSidebar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.navCollapsedSidebar:hover{
+    opacity: .8;
+}
+
+.collapsedShow{
+    width: 17%;
+}
+.collapsedHide{
+    width: 5%;
+}
+
+.iconBackSidebarCollapsed{
+    transform: rotate(-180deg);
+    transition: 500ms;
+}
+.iconBackSidebar{
+    transform: rotate(0deg);
+    transition: 500ms;
+}

@@ -1,0 +1,75 @@
+.bodyChangeProfile{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.topCardChangeProfile{
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.newImg .closeImg{
+    position: absolute;
+    margin-left: 20%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.newImg .closeImg:hover{
+    background-color: #f0ecec;
+}
+.imgProfile{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid linear-gradient(to right, green, blue);
+}
+.buttonImgEdit{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0, .1);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buttonImgEdit input{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    opacity: 0;
+    cursor: pointer;
+}
+.buttonImgEdit:hover{
+    opacity: .6;
+}
+.infoChangeProfile{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.infoChangeProfile .name{
+    display: flex;
+    width: 100%;
+    padding: 15px;
+    justify-content: center;
+}
+.infoChangeProfile .fieldInfo{
+    width: 100%;
+}
+.infoChangeProfile .buttonEdit{
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+
+.loadButton:focus{
+    background: transparent;
+}

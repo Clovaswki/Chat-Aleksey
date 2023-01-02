@@ -1,0 +1,7 @@
+.breadcrumbsAdmin{
+    display: flex;
+    flex-direction: column;
+}
+.breadcrumbsAdmin span{
+    margin-top: -45px;
+}

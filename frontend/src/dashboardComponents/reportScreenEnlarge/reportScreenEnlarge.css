@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+.background-reportScreen{
+    position: absolute;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0,0,0, .2);
+    backdrop-filter: blur(5px);
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CloseFullScreenIcon-Report{
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    padding: 5px;
+    cursor: pointer;
+    transition: 200ms;
+}
+.CloseFullScreenIcon-Report:hover{
+    transform: scale(1.5, 1.5);
+}
+
+.reportEnlarge{
+    background-color: #fff;
+    width: 60%;
+    height: 70vh;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.topReportEnlarge{
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.topReportEnlarge small{
+    font-family: 'Roboto';
+}
+
+.reportText{
+    padding: 15px;
+    flex: 1;
+}
+.reportText .reportTextCard{
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 15px;
+
+}
+
+.footerReportScreen{
+    padding: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap:  10px;
+}
+
+.btnPDFBackground{
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 5px;
+    border: 1px solid red;
+}
+
+.buttonPDF{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    display: flex;
+    gap: 5px;
+    border-radius: 0;
+    border: 0;
+}

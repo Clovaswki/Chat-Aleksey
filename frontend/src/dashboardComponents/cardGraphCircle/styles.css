@@ -1,0 +1,96 @@
+.cardGraphCircle {
+    position: relative;
+    height: 360px;
+    margin-left: 15px;
+    display: flex;
+    align-items: flex-end;
+    transition: 500ms;
+}
+
+.large{
+    width: 425px;
+}
+.small{
+    width: 370px;
+}
+
+.badgeGraphCircle {
+    position: absolute;
+    top: 5%;
+    left: 4%;
+    /* background-color: #3F99EF; */
+    background-image: radial-gradient(circle, #257EEA,#3F99EF);
+    height: 70px;
+    width: 70px;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardGraphCircle .body-cardGraphCircle {
+    background-color: #fff;
+    border-radius: 14px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, .1);
+    height: 330px;
+    width: 100%;
+    padding: 25px;
+}
+
+.partOne-cardGraphCircle {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+.partOne-cardGraphCircle .graphCircleSpan{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.partOne-cardGraphCircle .titleGraphCircleSpan{
+    display: flex;
+    justify-content: flex-end;
+}
+.partOne-cardGraphCircle .titleGraphCircleSpan p{
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    color: #7b809a;
+    line-height: 21px;
+}
+
+.divider-insideCardGraphCircle{
+    height: 1px;
+    width: 100%;
+    background-image: radial-gradient(circle, #d1d0d0 60%, lightgray 30%);
+    opacity: .4;
+}
+
+.partTwo-cardGraphCircle{
+    display: flex;
+    align-items: center;
+}
+.partTwo-cardGraphCircle div{
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.partTwo-cardGraphCircle p{
+    color: #4caf50;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    line-height: 21px;
+    margin: 0;
+}
+.partTwo-cardGraphCircle small{
+    color: #7b809a;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 300;
+    font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
