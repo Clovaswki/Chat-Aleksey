@@ -77,12 +77,12 @@ the main dependencies needed in the project are specified bellow
 
 ## Execution
 
-![login](https//i.ibb.co/ssxytY4/CA-login.png)
+![login](https://i.ibb.co/c2fDxn9/CA-login.png)
 
-![register](https//i.ibb.co/tQzvQyN/CA-register.png)
+![register](https://i.ibb.co/tQzvQyN/CA-register.png)
 
-![chat](https//i.ibb.co/D14Qygk/CA-homepage.png)
+![chat](https://i.ibb.co/RPzGTvv/CA-h.png)
 
-![.](https//i.ibb.co/RPzGTvv/CA-h.png)
+![.](https://i.ibb.co/D14Qygk/CA-homepage.png)
 
-![admin](https//i.ibb.co/RzN1DzZ/CA-admin.png)
+![admin](https://i.ibb.co/RzN1DzZ/CA-admin.png)
