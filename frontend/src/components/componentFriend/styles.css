@@ -1,10 +1,11 @@
-li{
+.cardUserInAddFriends{
     height: 72px;
+    max-width: 250px;
 }
 .cardBodyUser{
     display: flex;
     justify-content: space-between;
-    width: 250px;
+    gap: 40px;
     margin: 0;
 }
 

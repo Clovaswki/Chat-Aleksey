@@ -140,51 +140,59 @@ export default function CardShowFriendProfile() {
     return (
         <div className='cardShowFriendProfile'>
             <header>
+
                 <ElevationCard border_radius={'5px'} elevation={3}>
                     <span onClick={() => setCardShowFriendProfile(false)}><Close /></span>
                     <p>Dados do contato</p>
                 </ElevationCard>
+
             </header>
             <div className="info_friendUser">
-                <ElevationCard border_radius={'5px'} elevation={3}>
-                    <div className="info_card_01">
-                        <img src={currentUser.picture ? currentUser.picture : '/img/noAvatar.png'} referrerpolicy="no-referrer" alt='imgUser' />
-                        <div>{currentUser.name}</div>
-                    </div>
-                </ElevationCard>
-                <ElevationCard border_radius={'5px'} elevation={3}>
-                    <div className="info_card_02">
-                        <div className='text_mutualFriends'>Amigos em comum</div>
-                        {
-                            loader ?
-                                LoaderMutualFriends
-                                :
-                                <div className='mutual_users'>
-                                    {
-                                        mutualFriends.length > 0 ?
-                                            <ul>
-                                                {
-                                                    mutualFriends.map((mutualFriend, index) => (
-                                                        <li key={index}>
-                                                            <img src={mutualFriend.picture ? mutualFriend.picture : '/img/noAvatar.png'} alt="mutualUser" />
-                                                            <p>{mutualFriend.name}</p>
-                                                        </li>
-                                                    ))
-                                                }
-                                            </ul>
-                                            :
-                                            ComponentNotMutualFriends
-                                    }
-                                </div>
-                        }
-                    </div>
-                </ElevationCard>
-                <ElevationCard border_radius={'5px'}>
-                    <div className='info_card_03'>
-                        <PersonPinIcon />
-                        <p>{currentUser.description}</p>
-                    </div>
-                </ElevationCard>
+                <div className='card-2'>
+                    <ElevationCard border_radius={'5px'} elevation={3}>
+                        <div className="info_card_01">
+                            <img src={currentUser.picture ? currentUser.picture : '/img/noAvatar.png'} referrerpolicy="no-referrer" alt='imgUser' />
+                            <div>{currentUser.name}</div>
+                        </div>
+                    </ElevationCard>
+                </div>
+                <div className='card-3'>
+                    <ElevationCard border_radius={'5px'} elevation={3}>
+                        <div className="info_card_02">
+                            <div className='text_mutualFriends'>Amigos em comum</div>
+                            {
+                                loader ?
+                                    LoaderMutualFriends
+                                    :
+                                    <div className='mutual_users'>
+                                        {
+                                            mutualFriends.length > 0 ?
+                                                <ul>
+                                                    {
+                                                        mutualFriends.map((mutualFriend, index) => (
+                                                            <li key={index}>
+                                                                <img src={mutualFriend.picture ? mutualFriend.picture : '/img/noAvatar.png'} alt="mutualUser" />
+                                                                <p>{mutualFriend.name}</p>
+                                                            </li>
+                                                        ))
+                                                    }
+                                                </ul>
+                                                :
+                                                ComponentNotMutualFriends
+                                        }
+                                    </div>
+                            }
+                        </div>
+                    </ElevationCard>
+                </div>
+                <div className='card-4'>
+                    <ElevationCard border_radius={'5px'}>
+                        <div className='info_card_03'>
+                            <PersonPinIcon />
+                            <p>{currentUser.description}</p>
+                        </div>
+                    </ElevationCard>
+                </div>
             </div>
         </div>
     )

@@ -208,7 +208,7 @@ module.exports = {
                 
                 var user = await User.findOne({_id: id}).exec()
 
-                user.admin 
+                user?.admin 
                 ? res.status(200).json({admin: true, message: 'success'})
                 : res.status(401).json({admin: false, error: 'noAdmin',})
             })

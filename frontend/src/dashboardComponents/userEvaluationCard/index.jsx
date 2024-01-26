@@ -49,10 +49,10 @@ export default function UserEvaluationCard({ evaluation }) {
                     <div className="top-userEvaluation">
                         <div className='nameAndPicture-userEvaluation'>
                             <img
-                                src={currentUser.picture ? currentUser.picture : '/img/noAvatar.png'}
+                                src={currentUser?.picture ? currentUser.picture : '/img/noAvatar.png'}
                                 referrerpolicy="no-referrer"
                             />
-                            <span>{currentUser.name}</span>
+                            <span>{currentUser?.name}</span>
                         </div>
                         <span>
                             <Badge

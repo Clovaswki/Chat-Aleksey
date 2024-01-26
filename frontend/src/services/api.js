@@ -4,8 +4,7 @@ import { getUserLocalStorage } from '../contexts/provider/utils'
 const user = getUserLocalStorage()
 
 const Api = axios.create({
-    baseURL: 'http://localhost:3001'
-    //baseURL: 'https://api-chat-aleksey-production.up.railway.app/'//railway
+    baseURL: "http://localhost:3001"
 })
 
 Api.interceptors.request.use(

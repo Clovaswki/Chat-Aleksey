@@ -43,7 +43,7 @@ const NoSearchComponent = (
 
 export default function EvaluationComponent() {
 
-    const { evaluations } = ContextDashboard()//data context dashboard
+    const { evaluations, allUsers } = ContextDashboard()//data context dashboard
     const [allEvaluations, setAllEvaluations] = useState([])
     const [dataEvaluations, setDataEvaluations] = useState([])//evaluations persistent data
     const [noSearch, setNoSearch] = useState(false)//without results for search
@@ -61,8 +61,10 @@ export default function EvaluationComponent() {
     function filterEvaluations() {
 
         var evaluationsFiltered = []
+
+        let availableEvaluations = evaluations.filter( e => allUsers.some(user => e.userId===user._id))
      
-        evaluations.forEach(({ userId }) => {
+        availableEvaluations.forEach(({ userId }) => {
 
             if (evaluationsFiltered.every(e => e.userId !== userId) || evaluationsFiltered.length == 0) {
 

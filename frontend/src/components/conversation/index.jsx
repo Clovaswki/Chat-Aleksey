@@ -14,9 +14,19 @@ import { changeTitle } from '../../helpers/changeTitle'
 const Conversation = ({ conv, currentUser }) => {
 
     const [user, setUser] = useState({})
-    const { allUsers, currentChat, badgeNewMessages, setBadgeNewMessages, conversations } = ContextChat()
+    const { 
+        allUsers, 
+        currentChat, 
+        badgeNewMessages, 
+        setBadgeNewMessages, 
+        conversations,
+        mobileLayout,
+        friendsOnline 
+    } = ContextChat()
 
     const [activeLineBottom, setActiveLineBottom] = useState(false)
+
+    const [userOnline, setUserOnline] = useState(false)
     
     //click in this conversation
     const [pressConv, setPressConv] = useState(false)
@@ -57,7 +67,7 @@ const Conversation = ({ conv, currentUser }) => {
             setBadgeNewMessages([...badgeNewMessages.filter(b => b.conversationId !== currentChat._id)])
             
         }
-        deleteNewMsgBadge()
+        currentChat && deleteNewMsgBadge()
 
         //muitos bugs
         //corrigir todos
@@ -88,6 +98,12 @@ const Conversation = ({ conv, currentUser }) => {
         setActiveLineBottom(conversations.length === 1 )
         
     }, [conversations])
+
+    useEffect(() => {
+        var friendId = conv.members.filter( member => member != currentUser.id)
+
+        setUserOnline(friendsOnline.some(friend => friend.userId==friendId))
+    }, [friendsOnline])
     
     const lineBottom = (
         activeLineBottom &&
@@ -99,6 +115,11 @@ const Conversation = ({ conv, currentUser }) => {
             <li className='Conversation'>
                 <div className={"cardConv " + (pressConv && 'pressConv')}>
                     <div className="imgConv">
+                        {
+                            mobileLayout &&
+                                userOnline &&
+                                    <span className="badgeOnlineFriend"></span>         
+                        }
                         <img src={user.picture ? user.picture : "/img/noAvatar.png"} referrerpolicy="no-referrer" alt="userContact" />
                     </div>
                     <div className="infoConv">

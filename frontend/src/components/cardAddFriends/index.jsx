@@ -137,9 +137,11 @@ export default function CardAddFriends({ }) {
                                         users.length > 0 ?
                                             <ul className="usersList">
                                                 {
+                                                    
                                                     users.map((user, index) => (
                                                         <ComponentFriend user={user} conversationsOfUser={conversationsOfUser} key={index} />
                                                     ))
+                                                  
                                                 }
                                             </ul>
                                             :

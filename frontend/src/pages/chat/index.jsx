@@ -5,22 +5,16 @@ import { io } from 'socket.io-client'
 import './styles.css'
 
 //components 
-import TopBar from "../../components/topBarChat";
-import SearchTopBar from "../../components/searchTopBar";
-import Conversation from "../../components/conversation";
-import FriendOnline from "../../components/friendOnline";
-import FieldMessages from "../../components/fieldMessages"; //field of messages
-import WelcomeChat from "../../components/welcomeChat";
 import CardAddFriends from "../../components/cardAddFriends";
 import CardProfile from "../../components/cardProfile";
 import ErrorMessage from "../../components/errorMessage";
 import LoadChat from "../../components/cardLoadChat";
-import ButtonAddFriendsInConversations from "../../components/buttonAddFriendsInConversations";
 import ModalAddDescription from "../../components/modalAddDescription";
-import CardShowFriendProfile from "../../components/cardShowFriendProfile";
 import ButtonShowFeedback from "../../components/cardFeedback/buttonShowFeedback";
 import ScreenBlocked from '../../components/screenBlocked'
 import CardFeedback from "../../components/cardFeedback";
+import ChatMobileLayout from "../../components/resposiveLayout/chatMobileLayout/chatMobileLayout";
+import ChatDesktopLayout from "../../components/resposiveLayout/chatDesktopLayout/chatDesktopLayout";
 
 //helpers
 import { errorHandling } from "../../helpers/errorHandling";
@@ -66,12 +60,15 @@ const Chat = () => {
         createdAt: ''
     })// new message that arrived
 
+    //check if mobile layout
+    const [mobileLayout, setMobileLayout] = useState(false)
+
     //chat blocked
     const [componentBlocked, setComponentBlocked] = useState(false)
 
     //modal change background
     const [modalChangeBackground, setModalChangeBackground] = useState(false)
-    
+
     //new background url
     const [urlBackground, setUrlBackground] = useState(getBackground())
 
@@ -132,21 +129,21 @@ const Chat = () => {
 
             setFriendsOnline([...filteredFriends])
         })
-        
+
         //received new notifications of messages
         socket.current.on('newNotification', data => {
 
-            if(data.receivedId === currentUser.id){
+            if (data.receivedId === currentUser.id) {
                 var notifications = badgeNewMessages
                 notifications.push(data)
-    
+
                 setBadgeNewMessages([...notifications])
             }
-            
+
         })
-        
+
     }, [currentUser, socket])
-    
+
     useEffect(() => {
         //add notifications number on the title of html document
         changeTitle(badgeNewMessages, currentUser.id)
@@ -227,12 +224,11 @@ const Chat = () => {
     }
 
     //get new notifications to badge of conversations
-    async function getNewNotifications(){
+    async function getNewNotifications() {
         try {
             var { data, status } = await Api.get('/chat/get-newMsg')
-            console.log(data)
-            
-            if(status === 200 && data.length > 0){
+
+            if (status === 200 && data.length > 0) {
                 return setBadgeNewMessages([...data])
             }
 
@@ -243,11 +239,19 @@ const Chat = () => {
         }
     }
 
-    const componentText_friendsOnline = (
-        <div className="content p-3 showText">
-            <p>Amigos Online</p>
-        </div>
-    )
+    //responsive layout chat
+    useEffect(() => {
+
+        setMobileLayout(window.innerWidth <= 800)
+
+        const updateStateMobile = () => {
+            setMobileLayout(window.innerWidth <= 800)
+        }
+
+        window.addEventListener("resize", updateStateMobile)
+
+        return () => window.removeEventListener("resize", updateStateMobile)
+    }, [])
 
     return (
         <ChatContext.Provider value={{
@@ -267,7 +271,9 @@ const Chat = () => {
             setModeEditProfile,
             modeEditProfile,
             setNoResults,
+            noResults,
             cardFriendsMaxWidth,
+            setCardFriendsMaxWidth,
             setActiveCardAddDescription,
             setCardShowFriendProfile,
             cardShowFriendProfile,
@@ -279,7 +285,10 @@ const Chat = () => {
             setUrlBackground,
             urlBackground,
             setBadgeNewMessages,
-            badgeNewMessages
+            badgeNewMessages,
+            friendsOnline,
+            setCurrentChat,
+            mobileLayout
         }}>
             {
                 !componentBlocked ?
@@ -301,65 +310,18 @@ const Chat = () => {
                                 activeCardAddDescription && <ModalAddDescription />
                             }
                             <div className="Chat">
-                                <div className="Conversations">
-                                    <TopBar />
-                                    <SearchTopBar />
-                                    <ul className="Contacts">
-                                        {
-                                            noResults &&
-                                            <div className='cardNoResultsChat'>
-                                                <div>
-                                                    <img src="/img/userNotFound.png" alt="noResults" />
-                                                    <p>Nenhum usuário encontrado</p>
-                                                </div>
-                                            </div>
-                                        }
-                                        {
-                                            conversations.includes('none') ?
-
-                                                <ButtonAddFriendsInConversations />
-
-                                                :
-
-                                                conversations.map((conv, index) => (
-                                                    <div key={index} onClick={() => setCurrentChat(conv)} style={{ height: '60px' }} className='mt-3'>
-                                                        <Conversation conv={conv} currentUser={currentUser} />
-                                                    </div>
-                                                ))
-                                        }
-                                    </ul>
-                                </div>
                                 {
-                                    currentChat
-                                        ? <FieldMessages />
-                                        : <WelcomeChat />
-                                }
-                                {
-                                    cardShowFriendProfile ?
-                                        <CardShowFriendProfile />
+                                    mobileLayout ?
+                                        <ChatMobileLayout/>
                                         :
-                                        <div className={"FriendsOnline " + (cardFriendsMaxWidth ? "maxWidth" : "minWidth")}>
-                                            <div className="topBarOnline">
-                                                <div className="divIconBack">
-                                                    <img className="iconBack" src="/img/iconBack.png" alt="back" onClick={() => setCardFriendsMaxWidth(cardFriendsMaxWidth ? false : true)} />
-                                                </div>
-                                                {
-                                                    cardFriendsMaxWidth && componentText_friendsOnline
-                                                }
-                                            </div>
-                                            <ul>
-                                                {
-                                                    friendsOnline.map((friend, index) => (
-                                                        <FriendOnline key={index} friend={friend} />
-                                                    ))
-                                                }
-                                            </ul>
-                                        </div>
+                                        <ChatDesktopLayout/>
                                 }
+                                
                                 {
                                     cardFeedback && <CardFeedback />
                                 }
                                 {!cardFeedback && <ButtonShowFeedback />}
+
                             </div>
                         </>
                     :

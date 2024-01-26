@@ -32,20 +32,18 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
     useEffect(() => {
         setUserAvailable(user)
         setName(user.name)
+        if(user.name.length > 9){
+    
+            var nameArray = name.split('')
+    
+            var nameFilter = nameArray.splice(0, 9)
+    
+            nameFilter = `${nameFilter.join('')}`
+    
+            setName(nameFilter)
+    
+        }
     }, [user])
-
-    if(name.length > 9){
-
-        var nameArray = name.split('')
-
-        var nameFilter = nameArray.splice(0, 9)
-
-        nameFilter = `${nameFilter.join('')}`
-
-        setName(nameFilter)
-
-    }
-    //...
 
     //verify if the user is a contact
     useEffect(() => {
@@ -93,7 +91,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
     }
 
     return (
-        <li>
+        <li className='cardUserInAddFriends'>
             <Card>
                 <Card.Body className='cardBodyUser'>
                     <div className="userInfo">
