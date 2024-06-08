@@ -57,8 +57,9 @@ the main dependencies needed in the project are specified bellow
 
 ## Enviroiment variables
 
-**API_URL** - rest api url
-**WEBSOCKET_SERVER_URL** - websocket server url
+    API_URL - rest api url
+
+    WEBSOCKET_SERVER_URL - websocket server url
 
 ## Start
 
