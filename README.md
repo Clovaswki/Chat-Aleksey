@@ -55,6 +55,11 @@ the main dependencies needed in the project are specified bellow
     nodemon => 2.0.19
     socket.io => 4.5.1
 
+## Enviroiment variables
+
+**API_URL** - rest api url
+**WEBSOCKET_SERVER_URL** - websocket server url
+
 ## Start
 
 **App React**
