@@ -11,7 +11,7 @@ const App = () => {
     return (
         <div className="App">
             <AuthProvider>
-                <GoogleOAuthProvider clientId={'623937589095-0nfiu9ckifv0bnht5k28n337o6alecj5.apps.googleusercontent.com'}>
+                <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENT_SECRET_GOOGLE}>
                     <Router />
                 </GoogleOAuthProvider>
             </AuthProvider>
