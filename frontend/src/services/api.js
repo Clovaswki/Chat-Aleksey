@@ -4,7 +4,7 @@ import { getUserLocalStorage } from '../contexts/provider/utils'
 const user = getUserLocalStorage()
 
 const Api = axios.create({
-    baseURL: process.env.API_URL
+    baseURL: process.env.REACT_APP_API_URL
 })
 
 Api.interceptors.request.use(
