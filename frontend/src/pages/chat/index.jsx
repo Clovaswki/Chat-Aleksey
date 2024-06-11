@@ -91,7 +91,7 @@ const Chat = () => {
 
     useEffect(() => {
         //connection with websocket server
-        socket.current = io(process.env.WEBSOCKET_SERVER_URL)
+        socket.current = io(process.env.REACT_APP_WEBSOCKET_SERVER_URL)
         //socket.current = io('https://websocket-server-aleksey-production.up.railway.app')//railway
 
         currentUser.setSocket(socket.current) //add websocket server instance on the auth context
