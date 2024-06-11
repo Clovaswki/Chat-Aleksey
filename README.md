@@ -57,9 +57,9 @@ the main dependencies needed in the project are specified bellow
 
 ## Enviroiment variables
 
-    API_URL - rest api url
+    REACT_APP_API_URL - rest api url
 
-    WEBSOCKET_SERVER_URL - websocket server url
+    REACT_APP_WEBSOCKET_SERVER_URL - websocket server url
 
 ## Start
 
