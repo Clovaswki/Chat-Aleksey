@@ -7,6 +7,8 @@ import './styles.css'
 import TopBarMessages from '../topBarMessages';
 import Message from "../message";
 import ModalMessage from "../modalMessage";
+import ChooseBackground from "../chooseBackground";
+import MessagesLoadCard from "./messagesLoadCard";
 
 //contexts
     //auth context
@@ -22,13 +24,13 @@ import CardEmojis from "../cardEmojis/cardEmojis";
 
 //manager functions backgrounds
 import { getBackground } from "../../helpers/backgrounds";
-import ChooseBackground from "../chooseBackground";
 
 const FieldMessages = () => {
 
     const [messages, setMessages] = useState([]) //messages of conversation
     const [user, setUser] = useState({})
     const [newMessage, setNewMessage] = useState('')//new input
+    const [isloadMessages, setIsLoadMessages] = useState(true)
     const scrollRef = useRef()
     const { 
         currentChat, 
@@ -66,6 +68,7 @@ const FieldMessages = () => {
 
     //get all messages of conversation
     useEffect(() => {
+        setIsLoadMessages(true)
         async function getMessages(){
             try{
                 var response = await Api.get(`/chat/get-messages?conversationId=${currentChat._id}&userId=${currentUser.id}`)
@@ -74,6 +77,7 @@ const FieldMessages = () => {
             }catch(error){
                 errorHandling(error, 'fieldMessages')
             }
+            setIsLoadMessages(false)
         }
         getMessages()
     }, [currentChat])
@@ -123,14 +127,16 @@ const FieldMessages = () => {
         try{
             if(newMessage){
 
-                var res = await Api.post('/chat/new-message', newMsg) 
-
                 setMessages([...messages, {
-                    _id: res.data._id,
+                    _id: "",
                     conversationId: currentChat._id,
                     sender: currentUser.id,
                     text: newMessage
                 }])
+
+                setNewMessage('')
+
+                var res = await Api.post('/chat/new-message', newMsg) 
                 
                 //send new message to badge of conversation
                 await Api.get(`/chat/send-newMsg?conversationId=${currentChat._id}&userId=${currentUser.id}`)
@@ -153,9 +159,14 @@ const FieldMessages = () => {
                     senderId: currentUser.id,
                     receivedId
                 })
-                
+
+                //set message id
+                setMessages([...messages, {
+                    _id: res.data._id,
+                    ...newMsg
+                }])
+
             }
-            setNewMessage('')
         }catch(error){
             errorHandling(error, 'fieldMessages')
         }
@@ -218,6 +229,9 @@ const FieldMessages = () => {
             <TopBarMessages user={user} writing={writing}/>
             <div className="cardMessages" style={{ backgroundImage: choosedBackground}}>
                 {
+                    isloadMessages?
+                    <MessagesLoadCard/>
+                    :
                     messages.map( (msg, index) => (
                         <div key={index} ref={scrollRef}>
                             <Message 
