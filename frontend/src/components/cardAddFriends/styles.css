@@ -13,7 +13,7 @@
 
 .cardFirst .cardSearch{
     width: 60%;
-    height: 80vh;
+    height: 100vh;
     margin-top: 0px; 
     animation: showModalSearch;
     animation-duration: 500ms;
@@ -61,7 +61,7 @@
     display: flex;
     flex-wrap: wrap;
     height: auto;
-    max-height: 320px;
+    max-height: 400px;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;

@@ -22,7 +22,6 @@ import LoadDashboard from "../../dashboardComponents/loadDashboard";
 import ReportScreenEnlarge from '../../dashboardComponents/reportScreenEnlarge/reportScreenEnlarge';
 import SidebarAdmin from "../../dashboardComponents/sidebarAdmin/sidebarAdmin";
 import UsersComponent from "../../dashboardComponents/usersComponent";
-import { Grid } from "@mui/material";
 
 const Dashboard = () => {
 
@@ -76,8 +75,7 @@ const Dashboard = () => {
     //listening for updates to user reviews: websocket
     useEffect(() => {
 
-        socket.current = io('ws://localhost:3002')
-        //socket.current = io('https://websocket-server-aleksey-production.up.railway.app')//railway
+        socket.current = io(process.env.REACT_APP_WEBSOCKET_SERVER_URL)
         
         socket.current.on('sendUpdateEvaluations', () => fetchEvaluations())
 
@@ -85,9 +83,11 @@ const Dashboard = () => {
 
     //fetch evaluations, all users and all messages
     useEffect(() => {
-        fetchEvaluations()
-        fetchAllUsers()
-        fetchAllMessages()
+        Promise.all([
+            fetchEvaluations(),
+            fetchAllUsers(),
+            fetchAllMessages()
+        ])
     }, [])
 
     async function fetchEvaluations(){

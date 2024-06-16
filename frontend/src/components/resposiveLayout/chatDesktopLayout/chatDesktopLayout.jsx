@@ -39,7 +39,7 @@ const ChatDesktopLayout = () => {
     const currentUser = ContextAuth() //data of user authenticated on the context provider
 
     return (
-        <>
+        <React.StrictMode>
             <div className="Conversations">
                 <TopBar />
                 <SearchTopBar />
@@ -95,7 +95,7 @@ const ChatDesktopLayout = () => {
                         </ul>
                     </div>
             }
-        </>
+        </React.StrictMode>
     )
 }
 

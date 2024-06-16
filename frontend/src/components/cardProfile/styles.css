@@ -11,11 +11,28 @@
 }
 .cardFirstProfile .cardProfile{
     width: 50%;
-    height: 90vh;
+    height: 100vh;
     margin-top: 0px; 
     animation: showModalChangeProfile;
     animation-duration: 500ms;
+    overflow-y: auto;
+    border-radius: 0;
 }
+
+/*scroll styles*/
+.cardFirstProfile .cardProfile::-webkit-scrollbar {
+    width: 10px;     
+}
+.cardFirstProfile .cardProfile::-webkit-scrollbar-track {
+    background-color:  #747070;
+}
+.cardFirstProfile .cardProfile::-webkit-scrollbar-thumb {
+    background-color: #a09d9d;
+    border-radius: 5px;
+    border: 1px solid #747070;               
+}
+/**/
+
 .cardProfile .bodyProfile{
     display: flex;
     flex-direction: column;

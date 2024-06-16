@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Card } from 'react-bootstrap'
 import './styles.css'
-import { PersonAdd, Check } from '@mui/icons-material';
+import { PersonAdd, Check,  } from '@mui/icons-material';
+import { CircularProgress  } from '@mui/material';
 
 //context current user
 import ContextAuth from '../../contexts/provider/auth'
@@ -24,6 +25,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
         immutableConversations 
     } = ContextChat()
     const [myFriend, setMyFriend] = useState(false)
+    const [isLoadAddFriendAction, setIsloadAddFriendAction] = useState(false);
 
     //user
     const [userAvailable, setUserAvailable] = useState(user)
@@ -56,6 +58,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
 
     //post new conversation
     const newConversation = async () => {
+        setIsloadAddFriendAction(true)
         try {
 
             var NewConversation = {
@@ -88,6 +91,7 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
         } catch (error) {
             errorHandling(error, 'componentFriend')
         }       
+        setIsloadAddFriendAction(false) 
     }
 
     return (
@@ -100,15 +104,21 @@ export default function ComponentFriend({ user, conversationsOfUser }) {
                     </div>
                     <div className="Buttons">
                         {
-                            myFriend
-                                ?
-                            <div className="iconCheck">
-                                <Check />
-                            </div>
-                                :
-                            <div className='iconAdd' onClick={newConversation}>
-                                <PersonAdd />
-                            </div>
+
+                            isLoadAddFriendAction?
+                                <div>
+                                    <CircularProgress/>
+                                </div>
+                            :
+                                myFriend
+                                    ?
+                                <div className="iconCheck">
+                                    <Check />
+                                </div>
+                                    :
+                                <div className='iconAdd' onClick={newConversation}>
+                                    <PersonAdd />
+                                </div>
                         }
                     </div>
                 </Card.Body>
